@@ -41,6 +41,7 @@ class AppController extends Controller
     {
         parent::initialize();
          $this->loadComponent('Auth', [
+             'authorize'=> 'Controller',
             'authenticate' => [
                 'Form' => [
                     'fields' => [
@@ -70,5 +71,17 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+    }
+
+    public function beforeRender(Event $event)
+    {
+        $this->set("loggedIn", $this->Auth != null && $this->Auth->user() != null);
+        return parent::beforeRender($event);
+    }
+
+    public function isAuthorized($user)
+    {
+        // By default deny access.
+        return false;
     }
 }

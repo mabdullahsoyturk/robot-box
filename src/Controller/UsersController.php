@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -12,6 +13,16 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(["add", "forgotPassword", "logout"]);
+    }
+
+    public function forgotPassword()
+    {
+
+    }
 
     /**
      * Index method
@@ -25,13 +36,13 @@ class UsersController extends AppController
         $this->set(compact('users'));
     }
 
-    private function createToken($length = 40,$keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    private function createToken($length = 40, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     {
         $res = "";
-        for ($i=0; $i <$length ; $i++) {
-            $res .= $keyspace[rand(0, strlen($keyspace)-1)];
-	}
-	return $res;
+        for ($i = 0; $i < $length; $i++) {
+            $res .= $keyspace[rand(0, strlen($keyspace) - 1)];
+        }
+        return $res;
     }
 
     /**
@@ -74,14 +85,22 @@ class UsersController extends AppController
 
     public function login()
     {
-    	if ($this->request->is('post')) {
-           $user = $this->Auth->identify();
-           if ($user) {
-              $this->Auth->setUser($user);
-              return $this->redirect($this->Auth->redirectUrl());
-           }
-           $this->Flash->error('Your username or password is incorrect.');
-   	 }
+        if($this->Auth->user() != null && $this->Auth->user() != false)
+            return $this->redirect(['controller' => 'pages', 'action' => 'display', 'home']);
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error('Your username or password is incorrect.');
+        }
+    }
+
+    public function logout()
+    {
+        $this->Flash->success('You are now logged out.');
+        return $this->redirect($this->Auth->logout());
     }
 
     /**

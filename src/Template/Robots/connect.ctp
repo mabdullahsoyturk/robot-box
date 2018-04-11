@@ -135,7 +135,6 @@ $this->append('script');
     <br>
 </div>
 
-<?php var_dump($robot) ?>
 
 <div id="myContainer">
     <div id="map" class="map"></div>

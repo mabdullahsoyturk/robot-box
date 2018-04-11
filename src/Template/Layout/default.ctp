@@ -35,16 +35,35 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </head>
 <body>
 <nav class="top-bar expanded" data-topbar role="navigation">
-    <ul class="title-area large-3 medium-4 columns">
-        <li class="name">
-            <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-        </li>
-    </ul>
 
     <?php if ($loggedIn): ?>
         <div class="top-bar-section">
             <ul class="left">
+                <li><?= $this->Html->link(__('Home'), ['action' => 'index', 'controller' => 'pages']) ?></li>
+            </ul>
+        </div>
+
+        <div class="top-bar-section">
+            <ul class="left">
                 <li><?= $this->Html->link(__('My Robots'), ['action' => 'index', 'controller' => 'robots']) ?></li>
+            </ul>
+        </div>
+
+        <div class="top-bar-section">
+            <ul class="left">
+                <li><?= $this->Html->link(__('My Maps'), ['action' => 'index', 'controller' => 'maps']) ?></li>
+            </ul>
+        </div>
+
+        <div class="top-bar-section">
+            <ul class="left">
+                <li><?= $this->Html->link(__('My Topics'), ['action' => 'index', 'controller' => 'topics']) ?></li>
+            </ul>
+        </div>
+
+        <div class="top-bar-section">
+            <ul class="left">
+                <li><?= $this->Html->link(__('My Message Types'), ['action' => 'index', 'controller' => 'MesTypes']) ?></li>
             </ul>
         </div>
 

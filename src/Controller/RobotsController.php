@@ -23,7 +23,8 @@ class RobotsController extends AppController
         $this->paginate = [
             'contain' => ['Users', 'Topics', 'Maps']
         ];
-        $robots = $this->paginate($this->Robots);
+
+        $robots = $this->paginate($this->Robots->find()->where(['Robots.user_id' => $this->Auth->user('id')]));
 
         $this->set(compact('robots'));
     }
@@ -113,4 +114,13 @@ class RobotsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function isAuthorized($user)
+        {
+            if (in_array($this->request->action, ['index', 'view', 'add','edit', 'delete'])) {
+              return true;
+             }
+        
+        return parent::isAuthorized($user);
+      }
 }

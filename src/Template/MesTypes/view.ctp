@@ -9,8 +9,6 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Message Type'), ['action' => 'edit', $mesType->id]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Message Type'), ['action' => 'delete', $mesType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $mesType->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Message Types'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Message Type'), ['action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="mesTypes view large-9 medium-8 columns content">

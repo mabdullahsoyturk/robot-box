@@ -23,7 +23,7 @@ class TopicsController extends AppController
         $this->paginate = [
             'contain' => ['Users', 'MesTypes']
         ];
-        $topics = $this->paginate($this->Topics);
+        $topics = $this->paginate($this->Topics->find()->where(['Topics.user_id' => $this->Auth->user('id')]));
 
         $this->set(compact('topics'));
     }
@@ -111,4 +111,13 @@ class TopicsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function isAuthorized($user)
+        {
+            if (in_array($this->request->action, ['add', 'index', 'view', 'edit', 'delete'])) {
+              return true;
+             }
+        
+        return parent::isAuthorized($user);
+      }
 }

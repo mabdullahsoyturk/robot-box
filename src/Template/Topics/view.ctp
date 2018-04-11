@@ -9,14 +9,6 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Topic'), ['action' => 'edit', $topic->id]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Topic'), ['action' => 'delete', $topic->id], ['confirm' => __('Are you sure you want to delete # {0}?', $topic->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Topics'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Topic'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Mes Types'), ['controller' => 'MesTypes', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Mes Type'), ['controller' => 'MesTypes', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Robots'), ['controller' => 'Robots', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Robot'), ['controller' => 'Robots', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="topics view large-9 medium-8 columns content">

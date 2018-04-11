@@ -4,25 +4,8 @@
  * @var \App\Model\Entity\Topic $topic
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $topic->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $topic->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Topics'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Mes Types'), ['controller' => 'MesTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Mes Type'), ['controller' => 'MesTypes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Robots'), ['controller' => 'Robots', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Robot'), ['controller' => 'Robots', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="topics form large-9 medium-8 columns content">
+
+<div class="topics form large-12 medium-8 columns content">
     <?= $this->Form->create($topic) ?>
     <fieldset>
         <legend><?= __('Edit Topic') ?></legend>

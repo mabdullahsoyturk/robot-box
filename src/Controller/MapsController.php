@@ -23,7 +23,7 @@ class MapsController extends AppController
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $maps = $this->paginate($this->Maps);
+        $maps = $this->paginate($this->Maps->find()->where(['Maps.user_id' => $this->Auth->user('id')]));
 
         $this->set(compact('maps'));
     }

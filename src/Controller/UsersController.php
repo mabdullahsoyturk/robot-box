@@ -76,7 +76,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', 'controller' => 'pages']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -146,4 +146,17 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function isAuthorized($user)
+        {
+            if (in_array($this->request->action, ['index', 'view', 'logout'])) {
+              return true;
+             }
+
+            if (in_array($this->request->action, ['edit', 'delete'])) {
+                return false;
+             }
+        
+        return parent::isAuthorized($user);
+      }
 }

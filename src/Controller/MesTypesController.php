@@ -23,7 +23,7 @@ class MesTypesController extends AppController
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $mesTypes = $this->paginate($this->MesTypes->find()->where(['user_id' => $this->Auth->user("id")]));
+        $mesTypes = $this->paginate($this->MesTypes->find()->where(['MesTypes.user_id' => $this->Auth->user('id')]));
 
         $this->set(compact('mesTypes'));
     }

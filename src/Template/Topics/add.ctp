@@ -8,12 +8,7 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('List Topics'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Mes Types'), ['controller' => 'MesTypes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Mes Type'), ['controller' => 'MesTypes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Robots'), ['controller' => 'Robots', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Robot'), ['controller' => 'Robots', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Add a New Message Type'), ['action' => 'add', 'controller' => 'MesTypes']) ?></li>
     </ul>
 </nav>
 <div class="topics form large-9 medium-8 columns content">

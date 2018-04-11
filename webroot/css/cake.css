@@ -401,12 +401,12 @@ fieldset legend {
 }
 
 .form button:hover, .form button:focus {
-    background: #BE840B;
+    background: #39b4bf;
     box-shadow: none;
 }
 
 button {
-    background: #966600;
+    background: #116d76;
 }
 
 div.message {

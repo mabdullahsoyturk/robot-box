@@ -15,14 +15,6 @@
     <h3><?= h($map->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $map->has('user') ? $this->Html->link($map->user->id, ['controller' => 'Users', 'action' => 'view', $map->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($map->id) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Width') ?></th>
             <td><?= $this->Number->format($map->width) ?></td>
         </tr>
@@ -32,7 +24,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Space') ?></th>
-            <td><?= $this->Number->format($map->space) ?></td>
+            <td><?= $this->Html->image("space_". $map->space) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('X Zero') ?></th>

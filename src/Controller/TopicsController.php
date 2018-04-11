@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -54,6 +55,7 @@ class TopicsController extends AppController
         $topic = $this->Topics->newEntity();
         if ($this->request->is('post')) {
             $topic = $this->Topics->patchEntity($topic, $this->request->getData());
+            $topic->user_id = $this->Auth->user("id");
             if ($this->Topics->save($topic)) {
                 $this->Flash->success(__('The topic has been saved.'));
 
@@ -62,7 +64,7 @@ class TopicsController extends AppController
             $this->Flash->error(__('The topic could not be saved. Please, try again.'));
         }
         $users = $this->Topics->Users->find('list', ['limit' => 200]);
-        $mesTypes = $this->Topics->MesTypes->find('list', ['limit' => 200]);
+        $mesTypes = $this->Topics->MesTypes->find('list', ['limit' => 200])->where(['user_id' => $this->Auth->user("id")]);
         $this->set(compact('topic', 'users', 'mesTypes'));
     }
 
@@ -88,7 +90,7 @@ class TopicsController extends AppController
             $this->Flash->error(__('The topic could not be saved. Please, try again.'));
         }
         $users = $this->Topics->Users->find('list', ['limit' => 200]);
-        $mesTypes = $this->Topics->MesTypes->find('list', ['limit' => 200]);
+        $mesTypes = $this->Topics->MesTypes->find('list', ['limit' => 200])->where(['user_id' => $this->Auth->user("id")]);
         $this->set(compact('topic', 'users', 'mesTypes'));
     }
 
@@ -113,11 +115,16 @@ class TopicsController extends AppController
     }
 
     public function isAuthorized($user)
-        {
-            if (in_array($this->request->action, ['add', 'index', 'view', 'edit', 'delete'])) {
-              return true;
-             }
-        
+    {
+        if(in_array($this->request->action, ['view', 'edit', 'delete'])){
+            $topicId = (int)$this->request->getParam("pass")[0];
+            return $this->Topics->find()->where(['user_id' => $user['id'], 'id' => $topicId])->count() == 1;
+        }
+
+        if (in_array($this->request->action, ['index', 'add'])) {
+            return true;
+        }
+
         return parent::isAuthorized($user);
-      }
+    }
 }

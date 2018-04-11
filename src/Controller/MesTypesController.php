@@ -62,8 +62,7 @@ class MesTypesController extends AppController
             }
             $this->Flash->error(__('The mes type could not be saved. Please, try again.'));
         }
-        $users = $this->MesTypes->Users->find('list', ['limit' => 200]);
-        $this->set(compact('mesType', 'users'));
+        $this->set(compact('mesType'));
     }
 
     /**
@@ -88,8 +87,7 @@ class MesTypesController extends AppController
             }
             $this->Flash->error(__('The mes type could not be saved. Please, try again.'));
         }
-        $users = $this->MesTypes->Users->find('list', ['limit' => 200]);
-        $this->set(compact('mesType', 'users'));
+        $this->set(compact('mesType'));
     }
 
     /**

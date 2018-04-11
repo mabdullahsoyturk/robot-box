@@ -59,12 +59,12 @@ class MapsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('width')
+            ->decimal('width')
             ->requirePresence('width', 'create')
             ->notEmpty('width');
 
         $validator
-            ->integer('height')
+            ->decimal('height')
             ->requirePresence('height', 'create')
             ->notEmpty('height');
 
@@ -73,12 +73,12 @@ class MapsTable extends Table
             ->notEmpty('space');
 
         $validator
-            ->integer('x_zero')
+            ->decimal('x_zero')
             ->requirePresence('x_zero', 'create')
             ->notEmpty('x_zero');
 
         $validator
-            ->integer('y_zero')
+            ->decimal('y_zero')
             ->requirePresence('y_zero', 'create')
             ->notEmpty('y_zero');
 

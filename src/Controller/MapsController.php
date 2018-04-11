@@ -113,6 +113,15 @@ class MapsController extends AppController
 
     public function isAuthorized($user)
     {
-        return true;
+        if(in_array($this->request->action, ['view', 'edit', 'delete'])){
+            $mapId = (int)$this->request->getParam("pass")[0];
+            return $this->Maps->find()->where(['user_id' => $user['id'], 'id' => $mapId])->count() == 1;
+        }
+
+        if (in_array($this->request->action, ['index', 'add'])) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
     }
 }

@@ -15,8 +15,6 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('width') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('height') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('space') ?></th>
@@ -28,11 +26,9 @@
         <tbody>
             <?php foreach ($maps as $map): ?>
             <tr>
-                <td><?= $this->Number->format($map->id) ?></td>
-                <td><?= $map->has('user') ? $this->Html->link($map->user->id, ['controller' => 'Users', 'action' => 'view', $map->user->id]) : '' ?></td>
                 <td><?= $this->Number->format($map->width) ?></td>
                 <td><?= $this->Number->format($map->height) ?></td>
-                <td><?= $this->Number->format($map->space) ?></td>
+                <td><?= $this->Number->format($map->space + 1) ?></td>
                 <td><?= $this->Number->format($map->x_zero) ?></td>
                 <td><?= $this->Number->format($map->y_zero) ?></td>
                 <td class="actions">

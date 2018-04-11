@@ -15,8 +15,6 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('mes_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('max_x') ?></th>
@@ -29,8 +27,6 @@
         <tbody>
             <?php foreach ($topics as $topic): ?>
             <tr>
-                <td><?= $this->Number->format($topic->id) ?></td>
-                <td><?= $topic->has('user') ? $this->Html->link($topic->user->id, ['controller' => 'Users', 'action' => 'view', $topic->user->id]) : '' ?></td>
                 <td><?= h($topic->name) ?></td>
                 <td><?= $topic->has('mes_type') ? $this->Html->link($topic->mes_type->name, ['controller' => 'MesTypes', 'action' => 'view', $topic->mes_type->id]) : '' ?></td>
                 <td><?= $this->Number->format($topic->max_x) ?></td>

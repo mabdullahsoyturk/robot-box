@@ -70,22 +70,22 @@ class TopicsTable extends Table
             ->notEmpty('name');
 
         $validator
-            ->integer('max_x')
+            ->decimal('max_x')
             ->requirePresence('max_x', 'create')
             ->notEmpty('max_x');
 
         $validator
-            ->integer('min_x')
+            ->decimal('min_x')
             ->requirePresence('min_x', 'create')
             ->notEmpty('min_x');
 
         $validator
-            ->integer('max_y')
+            ->decimal('max_y')
             ->requirePresence('max_y', 'create')
             ->notEmpty('max_y');
 
         $validator
-            ->integer('min_y')
+            ->decimal('min_y')
             ->requirePresence('min_y', 'create')
             ->notEmpty('min_y');
 

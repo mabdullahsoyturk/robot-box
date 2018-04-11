@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -55,6 +56,7 @@ class RobotsController extends AppController
         $robot = $this->Robots->newEntity();
         if ($this->request->is('post')) {
             $robot = $this->Robots->patchEntity($robot, $this->request->getData());
+            $robot->user_id = $this->Auth->user("id");
             if ($this->Robots->save($robot)) {
                 $this->Flash->success(__('The robot has been saved.'));
 
@@ -66,6 +68,16 @@ class RobotsController extends AppController
         $topics = $this->Robots->Topics->find('list', ['limit' => 200]);
         $maps = $this->Robots->Maps->find('list', ['limit' => 200]);
         $this->set(compact('robot', 'users', 'topics', 'maps'));
+    }
+
+    public function connect($id = null)
+    {
+        $robot = $this->Robots->get($id, [
+            'contain' => ['Topics', 'Topics.MesTypes']
+        ]);
+
+        $this->set(compact("robot"));
+
     }
 
     /**
@@ -116,11 +128,16 @@ class RobotsController extends AppController
     }
 
     public function isAuthorized($user)
-        {
-            if (in_array($this->request->action, ['index', 'view', 'add','edit', 'delete'])) {
-              return true;
-             }
-        
+    {
+        if(in_array($this->request->action, ['view', 'edit', 'delete', 'connect'])){
+            $robotId = (int)$this->request->getParam("pass")[0];
+            return $this->Robots->find()->where(['user_id' => $user['id'], 'id' => $robotId])->count() == 1;
+        }
+
+        if (in_array($this->request->action, ['index', 'add'])) {
+            return true;
+        }
+
         return parent::isAuthorized($user);
-      }
+    }
 }

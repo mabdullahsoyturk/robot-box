@@ -80,7 +80,8 @@ $this->append('script');
         console.log("width :" + message.width);
         console.log("height: " + message.height);
         console.log("encoding: " + message.encoding);
-        console.log("data : " + message.data);
+        var uint8array = new TextEncoder("utf-8").encode(message.data);
+        console.log("data : " + uint8array);
     });
 
 

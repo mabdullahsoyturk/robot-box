@@ -94,13 +94,13 @@ $this->append('script');
                 g = uint8array[i];
             } else if (i % 3 == 2) {
                 r = uint8array[i];
-            }
-            context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-            context.fillRect(x, y, 1, 1);
-            x = x + 1;
-            if (x == 640) {
-                x = 0;
-                y++;
+                context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+                context.fillRect(x, y, 1, 1);
+                x = x + 1;
+                if (x == 640) {
+                    x = 0;
+                    y++;
+                }
             }
         }
         context.stroke();

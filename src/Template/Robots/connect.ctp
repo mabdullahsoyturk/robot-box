@@ -70,6 +70,17 @@ $this->append('script');
         messageType : '<?= $robot->topic->mes_type->name ?>'
     });
 
+    var listener2 = new ROSLIB.Topic({
+        ros : ros,
+        name : '/camera/rgb/image_raw',
+        messageType : 'sensor_msgs/Image'
+    });
+
+    listener2.subscribe(function(message) {
+        console.log(message.data);
+    });
+
+
     listener.subscribe(function(message) {
         var canvas = document.getElementById("mapCanvas");
         var context = canvas.getContext('2d');

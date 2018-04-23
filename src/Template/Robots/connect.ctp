@@ -72,11 +72,16 @@ $this->append('script');
 
     var listener2 = new ROSLIB.Topic({
         ros : ros,
-        name : '/camera/rgb/image_raw',
-        messageType : 'sensor_msgs/Image'
+        name : '/camera/rgb/image_raw/compressed',
+        messageType : 'sensor_msgs/CompressedImage'
     });
 
-    listener2.subscribe(function(message) {
+    Listener2.subscribe(function (message) {
+        console.log(message.data);
+        Listener2.unsubscribe();
+    });
+
+    /*listener2.subscribe(function(message) {
         var uint8array = new TextEncoder("utf-8").encode(message.data);
         var b = 0;
         var g = 0;
@@ -105,7 +110,7 @@ $this->append('script');
         }
         context.stroke();
         listener.unsubscribe();
-    });
+    });*/
 
 
     listener.subscribe(function(message) {

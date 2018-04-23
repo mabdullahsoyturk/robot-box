@@ -76,9 +76,9 @@ $this->append('script');
         messageType : 'sensor_msgs/CompressedImage'
     });
 
-    Listener2.subscribe(function (message) {
+    listener2.subscribe(function (message) {
         console.log(message.data);
-        Listener2.unsubscribe();
+        listener2.unsubscribe();
     });
 
     /*listener2.subscribe(function(message) {

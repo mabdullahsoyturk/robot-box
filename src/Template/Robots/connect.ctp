@@ -77,7 +77,10 @@ $this->append('script');
     });
 
     listener2.subscribe(function(message) {
-        console.log(message.data);
+        console.log("width :" + message.width);
+        console.log("height: " + message.height);
+        console.log("encoding: " + message.encoding);
+        console.log("data : " + message.data);
     });
 
 

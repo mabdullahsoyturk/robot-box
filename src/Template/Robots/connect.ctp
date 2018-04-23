@@ -97,13 +97,14 @@ $this->append('script');
                 context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
                 context.fillRect(x, y, 1, 1);
                 x = x + 1;
-                if (x == 640) {
+                if (x == message.width) {
                     x = 0;
                     y++;
                 }
             }
         }
         context.stroke();
+        listener.unsubscribe();
     });
 
 

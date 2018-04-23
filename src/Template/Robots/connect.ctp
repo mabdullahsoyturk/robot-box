@@ -77,11 +77,33 @@ $this->append('script');
     });
 
     listener2.subscribe(function(message) {
-        console.log("width :" + message.width);
-        console.log("height: " + message.height);
-        console.log("encoding: " + message.encoding);
         var uint8array = new TextEncoder("utf-8").encode(message.data);
-        console.log("data : " + uint8array);
+        var b = 0;
+        var g = 0;
+        var r = 0;
+        var canvas = document.getElementById("cameraCanvas");
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.beginPath();
+        var x = 0;
+        var y = 0;
+        for(var i = 0; i < uint8array.length; i++) {
+            if (i % 3 == 0) {
+                b = uint8array[i];
+            } else if (i % 3 == 1) {
+                g = uint8array[i];
+            } else if (i % 3 == 2) {
+                r = uint8array[i];
+            }
+            context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+            context.fillRect(x, y, 1, 1);
+            x = x + 1;
+            if (x == 640) {
+                x = 0;
+                y++;
+            }
+        }
+        context.stroke();
     });
 
 
@@ -154,6 +176,10 @@ $this->append('script');
 <div id="myContainer">
     <div id="map" class="map"></div>
     <canvas id="mapCanvas" width="600" height="500"></canvas>
+</div>
+
+<div>
+    <canvas id="cameraCanvas" width="640" height="480"></canvas>
 </div>
 
 <div id="statusIndicator">

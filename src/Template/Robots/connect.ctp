@@ -77,8 +77,13 @@ $this->append('script');
     });
 
     listener2.subscribe(function (message) {
-
-
+        var canvas = document.getElementById("cameraCanvas");
+        var ctx = canvas.getContext("2d");
+        var image = new Image();
+        image.onload = function() {
+            ctx.drawImage(image, 0, 0);
+        };
+        image.src = "data:image/jpeg;base64," + message.data;
     });
 
     listener.subscribe(function(message) {
@@ -153,10 +158,7 @@ $this->append('script');
 </div>
 
 <div>
-    <textarea id="t1">
-
-    </textarea>
-    <canvas id="cameraCanvas" width="640" height="480"></canvas>
+    <canvas id="cameraCanvas"></canvas>
 </div>
 
 <div id="statusIndicator">

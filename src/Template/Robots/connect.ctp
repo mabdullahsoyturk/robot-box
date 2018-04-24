@@ -77,9 +77,21 @@ $this->append('script');
     });
 
     listener2.subscribe(function (message) {
-        console.log(message.data);
-        listener2.unsubscribe();
+        onBinaryMessage(message.data);
     });
+
+    function onBinaryMessage(input) {
+        var blob = new Blob([input], {type: 'image/jpeg'});
+        var url = URL.createObjectURL(blob);
+        var img = new Image;
+
+        img.onload = function() {
+            var ctx = document.getElementById("cameraCanvas").getContext('2d');
+            ctx.drawImage(this, 0, 0);
+            URL.revokeObjectURL(url);
+        }
+        img.src = url;
+    }
 
     /*listener2.subscribe(function(message) {
         var uint8array = new TextEncoder("utf-8").encode(message.data);

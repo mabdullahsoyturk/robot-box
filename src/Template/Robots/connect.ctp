@@ -77,58 +77,9 @@ $this->append('script');
     });
 
     listener2.subscribe(function (message) {
-        var uint8array = new TextEncoder("utf-8").encode(message.data);
-        onBinaryMessage(uint8array);
-        console.log("works3 ");
+
+
     });
-
-    function onBinaryMessage(input) {
-        var blob = new Blob([input], {type: 'image/jpeg'});
-        var url = URL.createObjectURL(blob);
-        var img = new Image;
-
-        img.onload = function() {
-            console.log("works 1");
-            var ctx = document.getElementById("cameraCanvas").getContext('2d');
-            ctx.drawImage(this, 0, 0);
-            URL.revokeObjectURL(url);
-        };
-        img.src = url;
-        console.log("works 2");
-        console.log(url);
-    }
-
-    /*listener2.subscribe(function(message) {
-        var uint8array = new TextEncoder("utf-8").encode(message.data);
-        var b = 0;
-        var g = 0;
-        var r = 0;
-        var canvas = document.getElementById("cameraCanvas");
-        var context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.beginPath();
-        var x = 0;
-        var y = 0;
-        for(var i = 0; i < uint8array.length; i++) {
-            if (i % 3 == 0) {
-                b = uint8array[i];
-            } else if (i % 3 == 1) {
-                g = uint8array[i];
-            } else if (i % 3 == 2) {
-                r = uint8array[i];
-                context.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-                context.fillRect(x, y, 1, 1);
-                x = x + 1;
-                if (x == message.width) {
-                    x = 0;
-                    y++;
-                }
-            }
-        }
-        context.stroke();
-        listener.unsubscribe();
-    });*/
-
 
     listener.subscribe(function(message) {
         var canvas = document.getElementById("mapCanvas");
@@ -202,6 +153,9 @@ $this->append('script');
 </div>
 
 <div>
+    <textarea id="t1">
+
+    </textarea>
     <canvas id="cameraCanvas" width="640" height="480"></canvas>
 </div>
 

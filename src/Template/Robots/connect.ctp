@@ -77,12 +77,7 @@ $this->append('script');
     });
 
     listener2.subscribe(function (message) {
-        var canvas = document.getElementById("cameraCanvas");
-        var ctx = canvas.getContext("2d");
-        var image = new Image();
-        image.onload = function() {
-            ctx.drawImage(image, 0, 0);
-        };
+        var image = document.getElementById("cameraImg");
         image.src = "data:image/jpeg;base64," + message.data;
     });
 
@@ -158,7 +153,7 @@ $this->append('script');
 </div>
 
 <div>
-    <canvas id="cameraCanvas"></canvas>
+    <img id="cameraImg"/>
 </div>
 
 <div id="statusIndicator">

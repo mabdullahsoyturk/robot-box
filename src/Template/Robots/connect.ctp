@@ -79,6 +79,7 @@ $this->append('script');
     listener2.subscribe(function (message) {
         onBinaryMessage(message.data);
         console.log("I keep listen ma friend!");
+        listener2.unsubscribe();
     });
 
     function onBinaryMessage(input) {

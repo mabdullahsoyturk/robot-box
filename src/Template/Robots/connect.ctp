@@ -77,9 +77,9 @@ $this->append('script');
     });
 
     listener2.subscribe(function (message) {
-        onBinaryMessage(message.data);
-        console.log("I keep listen ma friend!");
-        listener2.unsubscribe();
+        var uint8array = new TextEncoder("utf-8").encode(message.data);
+        onBinaryMessage(uint8array);
+        console.log("Format :"  + message.format);
     });
 
     function onBinaryMessage(input) {

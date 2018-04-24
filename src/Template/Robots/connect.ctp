@@ -79,7 +79,7 @@ $this->append('script');
     listener2.subscribe(function (message) {
         var uint8array = new TextEncoder("utf-8").encode(message.data);
         onBinaryMessage(uint8array);
-        console.log("Format :"  + message.format);
+        console.log("works3 ");
     });
 
     function onBinaryMessage(input) {
@@ -88,11 +88,14 @@ $this->append('script');
         var img = new Image;
 
         img.onload = function() {
+            console.log("works 1");
             var ctx = document.getElementById("cameraCanvas").getContext('2d');
             ctx.drawImage(this, 0, 0);
             URL.revokeObjectURL(url);
-        }
+        };
         img.src = url;
+        console.log("works 2");
+        console.log(url);
     }
 
     /*listener2.subscribe(function(message) {

@@ -11,7 +11,6 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\TopicsTable|\Cake\ORM\Association\BelongsTo $Topics
- * @property \App\Model\Table\MapsTable|\Cake\ORM\Association\BelongsTo $Maps
  *
  * @method \App\Model\Entity\Robot get($primaryKey, $options = [])
  * @method \App\Model\Entity\Robot newEntity($data = null, array $options = [])
@@ -44,10 +43,6 @@ class RobotsTable extends Table
         ]);
         $this->belongsTo('Topics', [
             'foreignKey' => 'topic_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('Maps', [
-            'foreignKey' => 'map_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -90,7 +85,6 @@ class RobotsTable extends Table
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['topic_id'], 'Topics'));
-        $rules->add($rules->existsIn(['map_id'], 'Maps'));
 
         return $rules;
     }

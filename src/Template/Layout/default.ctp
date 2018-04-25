@@ -51,12 +51,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
         <div class="top-bar-section">
             <ul class="left">
-                <li><?= $this->Html->link(__('My Maps'), ['action' => 'index', 'controller' => 'maps']) ?></li>
-            </ul>
-        </div>
-
-        <div class="top-bar-section">
-            <ul class="left">
                 <li><?= $this->Html->link(__('My Topics'), ['action' => 'index', 'controller' => 'topics']) ?></li>
             </ul>
         </div>

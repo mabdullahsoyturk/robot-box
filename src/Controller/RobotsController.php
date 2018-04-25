@@ -22,7 +22,7 @@ class RobotsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users', 'Topics', 'Maps']
+            'contain' => ['Users', 'Topics']
         ];
 
         $robots = $this->paginate($this->Robots->find()->where(['Robots.user_id' => $this->Auth->user('id')]));
@@ -40,7 +40,7 @@ class RobotsController extends AppController
     public function view($id = null)
     {
         $robot = $this->Robots->get($id, [
-            'contain' => ['Users', 'Topics', 'Maps']
+            'contain' => ['Users', 'Topics']
         ]);
 
         $this->set('robot', $robot);
@@ -66,8 +66,7 @@ class RobotsController extends AppController
         }
         $users = $this->Robots->Users->find('list', ['limit' => 200]);
         $topics = $this->Robots->Topics->find('list', ['limit' => 200]);
-        $maps = $this->Robots->Maps->find('list', ['limit' => 200]);
-        $this->set(compact('robot', 'users', 'topics', 'maps'));
+        $this->set(compact('robot', 'users', 'topics'));
     }
 
     public function connect($id = null)
@@ -103,7 +102,6 @@ class RobotsController extends AppController
         }
         $users = $this->Robots->Users->find('list', ['limit' => 200]);
         $topics = $this->Robots->Topics->find('list', ['limit' => 200]);
-        $maps = $this->Robots->Maps->find('list', ['limit' => 200]);
         $this->set(compact('robot', 'users', 'topics', 'maps'));
     }
 

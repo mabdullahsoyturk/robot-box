@@ -18,7 +18,6 @@
                 <th scope="col"><?= $this->Paginator->sort('ip_address') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('port') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('topic_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('map_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -28,7 +27,6 @@
                 <td><?= h($robot->ip_address) ?></td>
                 <td><?= h($robot->port) ?></td>
                 <td><?= $robot->has('topic') ? $this->Html->link($robot->topic->name, ['controller' => 'Topics', 'action' => 'view', $robot->topic->id]) : '' ?></td>
-                <td><?= $robot->has('map') ? $this->Html->link($robot->map->id, ['controller' => 'Maps', 'action' => 'view', $robot->map->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('Connect'), ['action' => 'connect', $robot->id]) ?>
                     <?= $this->Html->link(__('View'), ['action' => 'view', $robot->id]) ?>

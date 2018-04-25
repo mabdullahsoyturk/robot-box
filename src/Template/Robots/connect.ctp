@@ -78,15 +78,19 @@ $this->append('script');
     });
 
     listener.subscribe(function (message) {
+        var readX = message.<?= $robot->topic->mes_type->x_par ?>;
+        var readY = message.<?= $robot->topic->mes_type->y_par ?>;
+        var readT = message.<?= $robot->topic->mes_type->t_par ?>;
+
         var canvas = document.getElementById("mapCanvas");
         var context = canvas.getContext('2d');
-        var centerX = (message.x / defResolution) * (canvas.width / defWidth);
-        var centerY = (defHeight - message.y / defResolution) * (canvas.height / defHeight);
+        var centerX = (readX / defResolution) * (canvas.width / defWidth);
+        var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
         var radius = 7;
 
-        $("#x_cord").text(message.x);
-        $("#y_cord").text(message.y);
-        $("#theta").text(message.theta);
+        $("#x_cord").text(readX);
+        $("#y_cord").text(readY);
+        $("#theta").text(readT);
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.beginPath();
@@ -99,7 +103,7 @@ $this->append('script');
 
         context.beginPath();
         context.moveTo(centerX, centerY);
-        context.lineTo(centerX - radius * Math.sin(message.theta - Math.PI / 2), centerY - radius * Math.cos(message.theta - Math.PI / 2));
+        context.lineTo(centerX - radius * Math.sin(readT - Math.PI / 2), centerY - radius * Math.cos(readT - Math.PI / 2));
         context.stroke();
     });
 

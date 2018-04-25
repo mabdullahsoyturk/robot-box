@@ -140,9 +140,8 @@ $this->append('script');
         defWidth = message.width;
         defHeight = message.height;
         defResolution = message.resolution;
-        originX = - message.origin.position.x;
-        originY =  -message.origin.position.y;
-        console.log("origin x:" + originX + " origin y:" + originY);
+        originX =  message.origin.position.x;
+        originY =  message.origin.position.y;
     });
 
 

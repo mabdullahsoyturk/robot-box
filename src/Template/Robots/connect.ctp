@@ -78,12 +78,12 @@ $this->append('script');
     });
 
     listener.subscribe(function (message) {
-        var readX = message.<?= $robot->topic->mes_type->x_par ?>;
-        var readY = message.<?= $robot->topic->mes_type->y_par ?>;
+        var readX = message.<?= $robot->topic->mes_type->x_par ?> + 15.4;
+        var readY = message.<?= $robot->topic->mes_type->y_par ?> + 13.8;
         var readT = 2 * Math.asin(message.pose.pose.orientation.w);
 
         console.log("H:"+defHeight + " " + "W:" + defWidth + " X:" + readX + " " + "Y:" + readY);
-        
+
         var canvas = document.getElementById("mapCanvas");
         var context = canvas.getContext('2d');
         var centerX = (readX / defResolution) * (canvas.width / defWidth);

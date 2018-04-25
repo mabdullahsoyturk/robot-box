@@ -95,7 +95,7 @@ $this->append('script');
     }
 
     listener.subscribe(function (message) {
-        var readX = message.<?= $robot->topic->mes_type->x_par ?> - originY;
+        var readX = message.<?= $robot->topic->mes_type->x_par ?> - originX;
         var readY = message.<?= $robot->topic->mes_type->y_par ?> - originY;
         var readT = quad_to_euler(message.pose.pose.orientation);
         var canvas = document.getElementById("mapCanvas");

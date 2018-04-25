@@ -130,8 +130,8 @@ $this->append('script');
     $(function () {
         var viewer = new ROS2D.Viewer({
             divID: 'map',
-            width: 600,
-            height: 500
+            width: 1000,
+            height: 1000
         });
 
         var gridClient = new ROS2D.OccupancyGridClient({

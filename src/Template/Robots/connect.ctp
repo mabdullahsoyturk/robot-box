@@ -100,8 +100,8 @@ $this->append('script');
         var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
         var radius = 7;
 
-        $("#x_cord").text(readX);
-        $("#y_cord").text(readY);
+        $("#x_cord").text(readX + originX);
+        $("#y_cord").text(readY + originY);
         $("#theta").text(readT);
 
         context.clearRect(0, 0, canvas.width, canvas.height);

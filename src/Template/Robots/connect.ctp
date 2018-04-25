@@ -81,7 +81,7 @@ $this->append('script');
     listener.subscribe(function (message) {
         var readX = message.<?= $robot->topic->mes_type->x_par ?> + 15.4;
         var readY = message.<?= $robot->topic->mes_type->y_par ?> + 13.8;
-        var readT = Math.atan2(message.pose.pose.orientation.z, message.pose.pose.orientation.w);
+        var readT = Math.atan2(message.pose.pose.orientation.z, message.pose.pose.orientation.w) + Math.PI / 2;
 
 
         console.log("H:"+defHeight + " " + "W:" + defWidth + " X:" + readX + " " + "Y:" + readY);

@@ -10,10 +10,14 @@ $this->append("css");
 
     #myContainer {
         display: inline-block;
-        width: 600px;
-        height: 500px;
+        width: 400px;
+        height: 340px;
         margin: 0 auto;
         position: relative;
+    }
+
+    #camContainer{
+        display: inline-block;
     }
 
     #mapCanvas {
@@ -148,8 +152,8 @@ $this->append('script');
     $(function () {
         var viewer = new ROS2D.Viewer({
             divID: 'map',
-            width: 600,
-            height: 500
+            width: 400,
+            height: 340
         });
 
         var gridClient = new ROS2D.OccupancyGridClient({
@@ -185,10 +189,10 @@ $this->append('script');
 
 <div id="myContainer">
     <div id="map" class="map"></div>
-    <canvas id="mapCanvas" width="600" height="500"></canvas>
+    <canvas id="mapCanvas" width="400" height="340"></canvas>
 </div>
 
-<div>
+<div id="camContainer">
     <img id="cameraImg"/>
 </div>
 

@@ -78,10 +78,16 @@ $this->append('script');
     });
 
 
+    function quad_to_euler(w,z){
+        var t3 = 2 * w * z;
+        var t4 = 1 - (2 * z * z);
+        return Math.atan2(t3, t4);
+    }
+
     listener.subscribe(function (message) {
         var readX = message.<?= $robot->topic->mes_type->x_par ?> + 15.4;
         var readY = message.<?= $robot->topic->mes_type->y_par ?> + 13.8;
-        var readT = Math.atan2(message.pose.pose.orientation.z, message.pose.pose.orientation.w) + Math.PI / 2;
+        var readT = quad_to_euler(message.pose.pose.orientation.w, message.pose.pose.orientation.z);
 
 
         console.log("H:"+defHeight + " " + "W:" + defWidth + " X:" + readX + " " + "Y:" + readY);

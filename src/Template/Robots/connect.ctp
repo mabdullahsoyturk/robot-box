@@ -140,6 +140,7 @@ $this->append('script');
         });
 
         gridClient.on('change', function () {
+            viewer.shift(15, 15);
             viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
         });
 

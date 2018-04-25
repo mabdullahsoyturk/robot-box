@@ -44,6 +44,7 @@ $this->append('script');
     var ros = new ROSLIB.Ros();
     var defWidth = 15;
     var defHeight = 15;
+    var defResolution = 1;
 
     ros.on('error', function (error) {
         document.getElementById('connecting').style.display = 'none';
@@ -79,8 +80,8 @@ $this->append('script');
     listener.subscribe(function (message) {
         var canvas = document.getElementById("mapCanvas");
         var context = canvas.getContext('2d');
-        var centerX = message.x * (canvas.width / defWidth);
-        var centerY = (defHeight - message.y) * (canvas.height / defHeight);
+        var centerX = (message.x / defResolution) * (canvas.width / defWidth);
+        var centerY = (defHeight - message.y / defResolution) * (canvas.height / defHeight);
         var radius = 7;
 
         $("#x_cord").text(message.x);
@@ -122,6 +123,7 @@ $this->append('script');
     listener3.subscribe(function (message) {
         defWidth = message.width;
         defHeight = message.height;
+        defResolution = message.resolution;
     });
 
 

@@ -45,6 +45,10 @@ $this->append('script');
     var defWidth = 15;
     var defHeight = 15;
     var defResolution = 1;
+    var oldOriginX = 15.4;
+    var oldOriginY = 13.8;
+    var originX = 0;
+    var originY = 0;
 
     ros.on('error', function (error) {
         document.getElementById('connecting').style.display = 'none';
@@ -78,25 +82,22 @@ $this->append('script');
     });
 
 
-    function quad_to_euler(w,z){
-        var t3 = 2 * w * z;
-        var t4 = 1 - (2 * z * z);
+    function quad_to_euler(q){
+        let w = q.w;
+        let z = q.z;
+        let t3 = 2 * w * z;
+        let t4 = 1 - (2 * z * z);
         return Math.atan2(t3, t4);
     }
 
     listener.subscribe(function (message) {
-        var readX = message.<?= $robot->topic->mes_type->x_par ?> + 15.4;
-        var readY = message.<?= $robot->topic->mes_type->y_par ?> + 13.8;
-        var readT = quad_to_euler(message.pose.pose.orientation.w, message.pose.pose.orientation.z);
-
-
-        console.log("H:"+defHeight + " " + "W:" + defWidth + " X:" + readX + " " + "Y:" + readY);
-
+        var readX = message.<?= $robot->topic->mes_type->x_par ?>;
+        var readY = message.<?= $robot->topic->mes_type->y_par ?>;
+        var readT = quad_to_euler(message.pose.pose.orientation);
         var canvas = document.getElementById("mapCanvas");
         var context = canvas.getContext('2d');
         var centerX = (readX / defResolution) * (canvas.width / defWidth);
         var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
-
         var radius = 7;
 
         $("#x_cord").text(readX);
@@ -139,6 +140,9 @@ $this->append('script');
         defWidth = message.width;
         defHeight = message.height;
         defResolution = message.resolution;
+        originX = - message.origin.position.x;
+        originY =  -message.origin.position.y;
+        console.log("origin x:" + originX + " origin y:" + originY);
     });
 
 
@@ -156,6 +160,7 @@ $this->append('script');
 
         gridClient.on('change', function () {
             viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+            viewer.shift(originX, originY);
         });
 
     });

@@ -82,10 +82,13 @@ $this->append('script');
         var readY = message.<?= $robot->topic->mes_type->y_par ?>;
         var readT = 2 * Math.asin(message.pose.pose.orientation.w);
 
+        console.log("H:"+defHeight + " " + "W:" + defWidth + " X:" + readX + " " + "Y:" + readY);
+        
         var canvas = document.getElementById("mapCanvas");
         var context = canvas.getContext('2d');
         var centerX = (readX / defResolution) * (canvas.width / defWidth);
         var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
+
         var radius = 7;
 
         $("#x_cord").text(readX);
@@ -134,8 +137,8 @@ $this->append('script');
     $(function () {
         var viewer = new ROS2D.Viewer({
             divID: 'map',
-            width: 1000,
-            height: 1000
+            width: 600,
+            height: 500
         });
 
         var gridClient = new ROS2D.OccupancyGridClient({
@@ -144,7 +147,6 @@ $this->append('script');
         });
 
         gridClient.on('change', function () {
-            viewer.shift(150, 150);
             viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
         });
 

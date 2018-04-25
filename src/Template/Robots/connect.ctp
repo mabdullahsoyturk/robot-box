@@ -113,6 +113,8 @@ $this->append('script');
         context.moveTo(centerX, centerY);
         context.lineTo(centerX - radius * Math.sin(readT - Math.PI / 2), centerY - radius * Math.cos(readT - Math.PI / 2));
         context.stroke();
+
+        listener.unsubscribe();
     });
 
     var listener2 = new ROSLIB.Topic({

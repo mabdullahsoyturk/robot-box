@@ -78,17 +78,9 @@ $this->append('script');
     });
 
     listener.subscribe(function (message) {
-        console.log(message);
-
-
         var readX = message.<?= $robot->topic->mes_type->x_par ?>;
         var readY = message.<?= $robot->topic->mes_type->y_par ?>;
-        var readT = message.<?= $robot->topic->mes_type->t_par ?>;
-
-
-        console.log(message.pose.pose.orientation);
-        console.log(Math.atan(message.pose.pose.orientation.x / message.pose.pose.orientation.y));
-
+        var readT = 2 * Math.asin(message.pose.pose.orientation.w);
 
         var canvas = document.getElementById("mapCanvas");
         var context = canvas.getContext('2d');

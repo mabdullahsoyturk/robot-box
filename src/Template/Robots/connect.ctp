@@ -77,18 +77,11 @@ $this->append('script');
         messageType: '<?= $robot->topic->mes_type->name ?>'
     });
 
+
     listener.subscribe(function (message) {
         var readX = message.<?= $robot->topic->mes_type->x_par ?> + 15.4;
         var readY = message.<?= $robot->topic->mes_type->y_par ?> + 13.8;
-        var readT = 2 * Math.asin(message.pose.pose.orientation.z);
-
-        if(Math.abs(Math.cos(readT / 2) - message.pose.pose.orientation.w) > 0.1){
-            if((2 * readT) > Math.PI){
-                readT = (Math.PI / 2) - 2 * readT;
-            }else{
-                readT = readT - 2 * (readT - (0.75 * Math.PI));
-            }
-        }
+        var readT = Math.atan2(message.pose.pose.orientation.w, message.pose.pose.orientation.z);
 
 
         console.log("H:"+defHeight + " " + "W:" + defWidth + " X:" + readX + " " + "Y:" + readY);

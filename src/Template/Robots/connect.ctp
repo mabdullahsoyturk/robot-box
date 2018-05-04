@@ -3,18 +3,26 @@ $this->append("css");
 ?>
 
 <style>
-    .map{position:absolute;z-index:1;}
-    #myContainer{
-        display:inline-block;
-        width:600px;
-        height:500px;
-        margin: 0 auto;
-        position:relative;
+    .map {
+        position: absolute;
+        z-index: 1;
     }
 
-    #mapCanvas{
-        position:relative;
-        z-index:20;
+    #myContainer {
+        display: inline-block;
+        width: 400px;
+        height: 340px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    #camContainer{
+        display: inline-block;
+    }
+
+    #mapCanvas {
+        position: relative;
+        z-index: 20;
     }
 </style>
 
@@ -30,16 +38,23 @@ $this->append('script');
 <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
 <script src="https://static.robotwebtools.org/ros2djs/current/ros2d.min.js"></script>
 <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 <script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 
 <script>
 
     var ros = new ROSLIB.Ros();
+    var defWidth = 15;
+    var defHeight = 15;
+    var defResolution = 1;
+    var oldOriginX = 15.4;
+    var oldOriginY = 13.8;
+    var originX = 0;
+    var originY = 0;
 
-    ros.on('error', function(error) {
+    ros.on('error', function (error) {
         document.getElementById('connecting').style.display = 'none';
         document.getElementById('connected').style.display = 'none';
         document.getElementById('closed').style.display = 'none';
@@ -47,7 +62,7 @@ $this->append('script');
         console.log(error);
     });
 
-    ros.on('connection', function() {
+    ros.on('connection', function () {
         console.log('Connection made!');
         document.getElementById('connecting').style.display = 'none';
         document.getElementById('error').style.display = 'none';
@@ -55,7 +70,7 @@ $this->append('script');
         document.getElementById('connected').style.display = 'inline';
     });
 
-    ros.on('close', function() {
+    ros.on('close', function () {
         console.log('Connection closed.');
         document.getElementById('connecting').style.display = 'none';
         document.getElementById('connected').style.display = 'none';
@@ -65,33 +80,34 @@ $this->append('script');
     ros.connect('ws://<?= $robot->ip_address ?>:<?= $robot->port ?>');
 
     var listener = new ROSLIB.Topic({
-        ros : ros,
-        name : '<?= $robot->topic->name ?>',
-        messageType : '<?= $robot->topic->mes_type->name ?>'
+        ros: ros,
+        name: '<?= $robot->topic->name ?>',
+        messageType: '<?= $robot->topic->mes_type->name ?>'
     });
 
-    var listener2 = new ROSLIB.Topic({
-        ros : ros,
-        name : '/camera/rgb/image_raw/compressed',
-        messageType : 'sensor_msgs/CompressedImage'
-    });
 
-    listener2.subscribe(function (message) {
-        var image = document.getElementById("cameraImg");
-        image.src = "data:image/jpeg;base64," + message.data;
-    });
+    function quad_to_euler(q){
+        let w = q.w;
+        let z = q.z;
+        let t3 = 2 * w * z;
+        let t4 = 1 - (2 * z * z);
+        return Math.atan2(t3, t4);
+    }
 
-    listener.subscribe(function(message) {
+    listener.subscribe(function (message) {
+        var readX = message.<?= $robot->topic->mes_type->x_par ?> - originX;
+        var readY = message.<?= $robot->topic->mes_type->y_par ?> - originY;
+        var readT = quad_to_euler(message.pose.pose.orientation);
         var canvas = document.getElementById("mapCanvas");
         canvas.addEventListener("mousedown", getPosition, false);
         var context = canvas.getContext('2d');
-        var centerX = message.x * (canvas.width / 11.088889122009277);
-        var centerY = (11.088889122009277 - message.y) * (canvas.height / 11.088889122009277);
+        var centerX = (readX / defResolution) * (canvas.width / defWidth);
+        var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
         var radius = 7;
 
-        $("#x_cord").text(message.x);
-        $("#y_cord").text(message.y);
-        $("#theta").text(message.theta);
+        $("#x_cord").text(readX + originX);
+        $("#y_cord").text(readY + originY);
+        $("#theta").text(readT);
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.beginPath();
@@ -104,10 +120,33 @@ $this->append('script');
 
         context.beginPath();
         context.moveTo(centerX, centerY);
-        context.lineTo(centerX - radius * Math.sin(message.theta - Math.PI / 2), centerY - radius * Math.cos(message.theta - Math.PI / 2));
+        context.lineTo(centerX - radius * Math.sin(readT - Math.PI / 2), centerY - radius * Math.cos(readT - Math.PI / 2));
         context.stroke();
+    });
 
+    var listener2 = new ROSLIB.Topic({
+        ros: ros,
+        name: '/camera/rgb/image_raw/compressed',
+        messageType: 'sensor_msgs/CompressedImage'
+    });
 
+    listener2.subscribe(function (message) {
+        var image = document.getElementById("cameraImg");
+        image.src = "data:image/jpeg;base64," + message.data;
+    });
+
+    var listener3 = new ROSLIB.Topic({
+        ros: ros,
+        name: "/map_metadata",
+        messageType: 'nav_msgs/MapMetaData'
+    });
+
+    listener3.subscribe(function (message) {
+        defWidth = message.width;
+        defHeight = message.height;
+        defResolution = message.resolution;
+        originX =  message.origin.position.x;
+        originY =  message.origin.position.y;
     });
 
     function getPosition(event)
@@ -135,24 +174,24 @@ $this->append('script');
         alert("x: " + x + "  y: " + y);
       }
 
-    $(function() {
+    $(function () {
         var viewer = new ROS2D.Viewer({
-            divID : 'map',
-            width : 600,
-            height : 500
+            divID: 'map',
+            width: 400,
+            height: 340
         });
 
         var gridClient = new ROS2D.OccupancyGridClient({
-            ros : ros,
-            rootObject : viewer.scene
+            ros: ros,
+            rootObject: viewer.scene
         });
 
-        gridClient.on('change', function(){
+        gridClient.on('change', function () {
             viewer.scaleToDimensions(gridClient.currentGrid.width, gridClient.currentGrid.height);
+            viewer.shift(originX, originY);
         });
 
     });
-
 
 
 </script>
@@ -175,10 +214,10 @@ $this->append('script');
 
 <div id="myContainer">
     <div id="map" class="map"></div>
-    <canvas id="mapCanvas" width="600" height="500"></canvas>
+    <canvas id="mapCanvas" width="400" height="340"></canvas>
 </div>
 
-<div>
+<div id="camContainer">
     <img id="cameraImg"/>
 </div>
 

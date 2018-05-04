@@ -31,10 +31,6 @@
             <td><?= $robot->has('topic') ? $this->Html->link($robot->topic->name, ['controller' => 'Topics', 'action' => 'view', $robot->topic->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Map') ?></th>
-            <td><?= $robot->has('map') ? $this->Html->link($robot->map->id, ['controller' => 'Maps', 'action' => 'view', $robot->map->id]) : '' ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($robot->id) ?></td>
         </tr>

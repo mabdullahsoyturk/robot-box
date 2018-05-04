@@ -23,8 +23,6 @@
         echo $this->Form->control('port');
         echo $this->Form->control('topic_id', ['options' => $topics]);
         echo $this->Html->link("Add new topic", ['controller'=>"topics", "action"=>"add"]);
-        echo $this->Form->control('map_id', ['options' => $maps]);
-        echo $this->Html->link("Add new map", ['controller'=>"maps", "action"=>"add"]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

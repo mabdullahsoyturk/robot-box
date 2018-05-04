@@ -14,7 +14,6 @@
             echo $this->Form->control('ip_address');
             echo $this->Form->control('port');
             echo $this->Form->control('topic_id', ['options' => $topics]);
-            echo $this->Form->control('map_id', ['options' => $maps]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

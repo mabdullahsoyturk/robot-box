@@ -11,7 +11,6 @@ use Cake\ORM\Entity;
  * @property string $ip_address
  * @property string $port
  * @property int $topic_id
- * @property int $map_id
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Topic $topic
@@ -34,7 +33,6 @@ class Robot extends Entity
         'ip_address' => true,
         'port' => true,
         'topic_id' => true,
-        'map_id' => true,
         'user' => true,
         'topic' => true,
         'map' => true

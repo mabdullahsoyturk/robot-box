@@ -83,6 +83,7 @@ $this->append('script');
 
     listener.subscribe(function(message) {
         var canvas = document.getElementById("mapCanvas");
+        canvas.addEventListener("mousedown", getPosition, false);
         var context = canvas.getContext('2d');
         var centerX = message.x * (canvas.width / 11.088889122009277);
         var centerY = (11.088889122009277 - message.y) * (canvas.height / 11.088889122009277);
@@ -108,6 +109,31 @@ $this->append('script');
 
 
     });
+
+    function getPosition(event)
+      {
+        var x = new Number();
+        var y = new Number();
+        var canvas = document.getElementById("canvas");
+
+        if (event.x != undefined && event.y != undefined)
+        {
+          x = event.x;
+          y = event.y;
+        }
+        else // Firefox method to get the position
+        {
+          x = event.clientX + document.body.scrollLeft +
+              document.documentElement.scrollLeft;
+          y = event.clientY + document.body.scrollTop +
+              document.documentElement.scrollTop;
+        }
+
+        x -= canvas.offsetLeft;
+        y -= canvas.offsetTop;
+
+        alert("x: " + x + "  y: " + y);
+      }
 
     $(function() {
         var viewer = new ROS2D.Viewer({

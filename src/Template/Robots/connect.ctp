@@ -30,7 +30,6 @@ $this->append("css");
 $this->end();
 ?>
 
-
 <?php
 $this->append('script');
 ?>
@@ -53,7 +52,6 @@ $this->append('script');
     var oldOriginY = 13.8;
     var originX = 0;
     var originY = 0;
-
     ros.on('error', function (error) {
         document.getElementById('connecting').style.display = 'none';
         document.getElementById('connected').style.display = 'none';
@@ -151,27 +149,61 @@ $this->append('script');
 
     function getPosition(event)
       {
-        var x = new Number();
-        var y = new Number();
-        var canvas = document.getElementById("canvas");
+        var positionX = new Number();
+        var positionY = new Number();
+        var canvas = document.getElementById("mapCanvas");
 
         if (event.x != undefined && event.y != undefined)
         {
-          x = event.x;
-          y = event.y;
+          positionX = event.x;
+          positionY = event.y;
         }
         else // Firefox method to get the position
         {
-          x = event.clientX + document.body.scrollLeft +
+          positionX = event.clientX + document.body.scrollLeft +
               document.documentElement.scrollLeft;
-          y = event.clientY + document.body.scrollTop +
+          positionY = event.clientY + document.body.scrollTop +
               document.documentElement.scrollTop;
         }
 
-        x -= canvas.offsetLeft;
-        y -= canvas.offsetTop;
+        positionX -= canvas.offsetLeft;
+        positionY -= canvas.offsetTop;
 
-        alert("x: " + x + "  y: " + y);
+        alert("x: " + positionX + "  y: " + positionY);
+
+
+          // Publishing the clicked position
+          // ------------------
+
+          var goal = new ROSLIB.Topic({
+            ros : ros,
+            name : '/move_base_simple/goal',
+            messageType : 'geometry_msgs/PoseStamped'
+          });
+
+          var sequence = 0;
+
+          var poseStamped = new ROSLIB.Message({
+            header : {
+              seq : sequence++,
+              stamp : (new Date).getTime(),
+              frame_id : 0
+            },
+            pose : {
+              position : new ROSLIB.Vector3({
+                x: positionX,
+                y: positionY,
+                z: 0
+              }),
+              orientation : new ROSLIB.Quaternion({
+                x: 0.1,
+                y: 0.1,
+                z: 0.1,
+                w: 0.1
+              })
+            }
+          });
+          goal.publish(poseStamped);
       }
 
     $(function () {

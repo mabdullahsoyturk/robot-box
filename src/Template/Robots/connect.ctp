@@ -52,6 +52,10 @@ $this->append('script');
     var oldOriginY = 13.8;
     var originX = 0;
     var originY = 0;
+
+    var centerX = 0.0;
+    var centerY = 0.0;
+
     ros.on('error', function (error) {
         document.getElementById('connecting').style.display = 'none';
         document.getElementById('connected').style.display = 'none';
@@ -83,7 +87,6 @@ $this->append('script');
         messageType: '<?= $robot->topic->mes_type->name ?>'
     });
 
-
     function quad_to_euler(q){
         let w = q.w;
         let z = q.z;
@@ -99,8 +102,8 @@ $this->append('script');
         var canvas = document.getElementById("mapCanvas");
         canvas.addEventListener("mousedown", getPosition, false);
         var context = canvas.getContext('2d');
-        var centerX = (readX / defResolution) * (canvas.width / defWidth);
-        var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
+        centerX = (readX / defResolution) * (canvas.width / defWidth);
+        centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
         var radius = 7;
 
         $("#x_cord").text(readX + originX);
@@ -147,6 +150,12 @@ $this->append('script');
         originY =  message.origin.position.y;
     });
 
+    var goal = new ROSLIB.Topic({
+      ros : ros,
+      name : '/move_base_simple/goal',
+      messageType : 'geometry_msgs/PoseStamped'
+    });
+
     function getPosition(event)
       {
         var positionX = new Number();
@@ -170,39 +179,25 @@ $this->append('script');
         positionY -= canvas.offsetTop;
 
         alert("x: " + positionX + "  y: " + positionY);
-
-
-          // Publishing the clicked position
-          // ------------------
-
-          var goal = new ROSLIB.Topic({
-            ros : ros,
-            name : '/move_base_simple/goal',
-            messageType : 'geometry_msgs/PoseStamped'
-          });
-
+        
           var sequence = 0;
 
           var poseStamped = new ROSLIB.Message({
             header : {
               seq : sequence++,
               stamp : (new Date).getTime(),
-              frame_id : 0
+              frame_id : "/map"
             },
             pose : {
               position : new ROSLIB.Vector3({
-                x: positionX,
-                y: positionY,
+                x: (positionX / canvas.width),
+                y: (positionY / canvas.height),
                 z: 0
               }),
-              orientation : new ROSLIB.Quaternion({
-                x: 0.1,
-                y: 0.1,
-                z: 0.1,
-                w: 0.1
-              })
+              orientation : new ROSLIB.Quaternion()
             }
           });
+          console.log(poseStamped);
           goal.publish(poseStamped);
       }
 

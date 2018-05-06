@@ -70,7 +70,7 @@ UI For Warehouse Robot uses cakePhp framework which requires Apache mod rewrite 
 
 ### Connecting to Database
 
-	Import the SQL, which is in the ros_database.sql, into the your database.
+	Import the SQL, which is ros_database.sql in the Database folder of the repository, into the your database.
 
 Then you move to the `config` folder in the project folder and copy the `app.default.php` and paste into the same directory, change the name of it as `app.php`.
 
@@ -87,3 +87,48 @@ After that, open `app.php`, and change the `'my_app'`, `'secret'` and `'my_app'`
             ...	
 ...
 ```
+
+## Tutorial
+
+### Launching [Turtlebot on Gazebo](http://wiki.ros.org/turtlebot_gazebo/Tutorials/indigo/Make%20a%20map%20and%20navigate%20with%20it#Make_a_map)
+
+First of all, you need to launch the Gazebo in order to create a virtual environment for Turtlebot.
+
+```bash
+$ roslaunch turtlebot_gazebo turtlebot_world.launch
+```
+
+### Building the Map
+
+In order to create map of the virtual environment, you can follow the turtlebot_gazebo [Make a map tutorial](http://wiki.ros.org/turtlebot_gazebo/Tutorials/indigo/Make%20a%20map%20and%20navigate%20with%20it#Make_a_map).
+
+After you create your own map just run the following script.
+
+```bash
+$ roslaunch turtlebot_gazebo amcl_demo.launch map_file:=<full path to your map YAML file>
+```
+
+Or if you prefer to use an already created map, just omit the map_file argument.
+
+### Controlling the Turtlebot with [Keyboard Teleop](http://wiki.ros.org/turtlebot_teleop/Tutorials/Keyboard%20Teleop)
+
+You can navigate the Turtlebot with pressing the `u i o j k l m , .` keys on your keyboard in the new terminal after run following script.
+
+```bash
+$ roslaunch turtlebot_teleop keyboard_teleop.launch
+```
+
+### Running [Rosbridge](http://wiki.ros.org/turtlebot_gazebo/Tutorials/indigo/Make%20a%20map%20and%20navigate%20with%20it#Make_a_map)
+
+You need to launch the rosbrige server to create a WebSocket on port 9090 by default.
+
+```bash
+$ roslaunch rosbridge_server rosbridge_websocket.launch
+```
+
+> Now that rosbridge has been launched and a WebSocket connection is available, we can create a basic HTML webpage to send and receive calls to rosbridge. [Roslibjs](http://wiki.ros.org/roslibjs) is a JavaScript library that handles the communication for you. Check out the [getting started with roslibjs](http://wiki.ros.org/roslibjs/Tutorials/BasicRosFunctionality) tutorial to create a webpage with roslibjs and rosbridge.
+
+### Usage
+
+Now, everything is ready. Go to the our project in your browser. After Signup/Login, first of all, you need to create your `message type` and `topic`. After that you can create your `robot`. Finally, to be able to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot, just tap the `connect` button.
+

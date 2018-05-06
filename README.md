@@ -14,7 +14,7 @@ In order to setup the project to your local, LAMP must be installed in your comp
 
 ### PHP Extensions
 
-Following extension should be installed in computer.
+Following extensions should be installed in computer.
 
 - mbstring PHP extension
 
@@ -41,12 +41,30 @@ $ sudo service apache2 restart
 ```
 
 
-### CakePHP
+## Installation
 
-CakePHP is simple and easy to install. The minimum requirements are a web server and a copy of CakePHP, that’s it! 
+### Cloning the project
 
-You can follow the [CakePHP installation tutorial](https://book.cakephp.org/3.0/en/installation.html).
+Clone the project under the "/var/www/html" folder.
 
+```bash
+$ cd /var/www/html
+$ git clone https://github.com/mabdullahsoyturk/ui-for-warehouse-robot.git
+```
 
+### Initializing the Composer
 
+To initialize the project that uses composer you need to navigate to the root folder of that project an simply execute
+
+```bash
+$ composer install
+```
+
+This command will read the dependencies from the composer.json descriptor file and downloads them ready for you to use in your project.
+
+> If you get `vendor does not exist and could not be created.` error, your folder (var/www) probably is read-only or has not enough rights. for a quick fix, try `chmod -R 777 /var/www`, but dont use 777 in production!
+
+### URL Rewriting 
+
+UI For Warehouse Robot uses cakePhp framework which requires Apache mod rewrite to be enabled. You can follow CakePHP's [URL Rewriting](https://book.cakephp.org/3.0/en/installation.html#url-rewriting) tutorial.
 

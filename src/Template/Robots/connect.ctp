@@ -48,13 +48,22 @@ $this->append('script');
     var defWidth = 15;
     var defHeight = 15;
     var defResolution = 1;
-    var oldOriginX = 15.4;
-    var oldOriginY = 13.8;
     var originX = 0;
     var originY = 0;
+    var canvas = document.getElementById("mapCanvas");
+    var context = null;
+    var readX = 0;
+    var readY = 0;
+    var readT = 0;
 
-    var centerX = 0.0;
-    var centerY = 0.0;
+    var goalExists = false;
+    var goalX, goalY;
+
+    $(document).ready(function(){
+        canvas = document.getElementById("mapCanvas");
+        canvas.addEventListener("mousedown", getCursorPosition, false);
+    });
+
 
     ros.on('error', function (error) {
         document.getElementById('connecting').style.display = 'none';
@@ -95,25 +104,18 @@ $this->append('script');
         return Math.atan2(t3, t4);
     }
 
-    listener.subscribe(function (message) {
-        var readX = message.<?= $robot->topic->mes_type->x_par ?> - originX;
-        var readY = message.<?= $robot->topic->mes_type->y_par ?> - originY;
-        var readT = quad_to_euler(message.pose.pose.orientation);
-        var canvas = document.getElementById("mapCanvas");
-        canvas.addEventListener("mousedown", getCursorPosition, false);
-        var context = canvas.getContext('2d');
-        centerX = (readX / defResolution) * (canvas.width / defWidth);
+    function draw(){
+        if(canvas == null) canvas = document.getElementById("mapCanvas");
+        if(context == null) context = canvas.getContext('2d');
 
-        centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
         var radius = 7;
 
-        $("#x_cord").text(readX + originX);
-        $("#y_cord").text(readY + originY);
-        $("#theta").text(readT);
+        var centerX = (readX / defResolution) * (canvas.width / defWidth) - (radius / 2);
+        var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight) - (radius / 2);
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.beginPath();
-        context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        context.arc(centerX , centerY, radius, 0, 2 * Math.PI, false);
         context.fillStyle = 'green';
         context.fill();
         context.lineWidth = 2;
@@ -124,6 +126,25 @@ $this->append('script');
         context.moveTo(centerX, centerY);
         context.lineTo(centerX - radius * Math.sin(readT - Math.PI / 2), centerY - radius * Math.cos(readT - Math.PI / 2));
         context.stroke();
+
+        if(goalExists){
+            context.beginPath();
+            context.arc(goalX -3, goalY -3, 3 , 0, 2 * Math.PI, false);
+            context.stroke();
+        }
+
+
+        $("#x_cord").text(readX + originX);
+        $("#y_cord").text(readY + originY);
+        $("#theta").text(readT);
+    }
+
+
+    listener.subscribe(function (message) {
+        readX = message.<?= $robot->topic->mes_type->x_par ?> - originX;
+        readY = message.<?= $robot->topic->mes_type->y_par ?> - originY;
+        readT = quad_to_euler(message.pose.pose.orientation);
+        draw();
     });
 
     var listener2 = new ROSLIB.Topic({
@@ -143,6 +164,12 @@ $this->append('script');
         messageType: 'nav_msgs/MapMetaData'
     });
 
+    var goalReached = new ROSLIB.Topic({
+        ros: ros,
+        name: "/move_base/result",
+        messageType: ''
+    });
+
     listener3.subscribe(function (message) {
         defWidth = message.width;
         defHeight = message.height;
@@ -156,6 +183,13 @@ $this->append('script');
       ros : ros,
       name : '/move_base_simple/goal',
       messageType : 'geometry_msgs/PoseStamped'
+    });
+
+    goal.subscribe(function (message) {
+        goalX = ((message.pose.position.x - originX) / defResolution) * (canvas.width / defWidth);
+        goalY = (defHeight - (message.pose.position.y - originY) / defResolution) * (canvas.height / defHeight);
+        goalExists = true;
+        draw();
     });
 
     function getCursorPosition(event) {

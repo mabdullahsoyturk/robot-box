@@ -236,8 +236,6 @@ $this->append('script');
         var positionY = event.clientY - rect.top;
         console.log("x: " + positionX + " y: " + positionY);
 
-        alert("x: " + positionX + "  y: " + positionY);
-
         var sequence = 0;
 
         var poseStamped = new ROSLIB.Message({

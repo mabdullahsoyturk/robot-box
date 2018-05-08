@@ -43,7 +43,7 @@ $this->append('script');
 <script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 
 <script>
-
+    //Something to commit
     var ros = new ROSLIB.Ros();
     var defWidth = 15;
     var defHeight = 15;

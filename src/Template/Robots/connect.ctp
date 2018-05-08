@@ -55,6 +55,10 @@ $this->append('script');
     var readX = 0;
     var readY = 0;
     var readT = 0;
+    var centerX = 0;
+    var centerY = 0;
+    var obj = [];
+    var radius = 7;
 
     var goalExists = false;
     var goalX, goalY;
@@ -62,6 +66,7 @@ $this->append('script');
     $(document).ready(function(){
         canvas = document.getElementById("mapCanvas");
         canvas.addEventListener("mousedown", getCursorPosition, false);
+        radius = 7;
     });
 
 
@@ -108,10 +113,8 @@ $this->append('script');
         if(canvas == null) canvas = document.getElementById("mapCanvas");
         if(context == null) context = canvas.getContext('2d');
 
-        var radius = 7;
-
-        var centerX = (readX / defResolution) * (canvas.width / defWidth) - (radius / 2);
-        var centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight) - (radius / 2);
+        centerX = (readX / defResolution) * (canvas.width / defWidth) - (radius / 2);
+        centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight) - (radius / 2);
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.beginPath();
@@ -131,6 +134,7 @@ $this->append('script');
             context.beginPath();
             context.arc(goalX -3, goalY -3, 3 , 0, 2 * Math.PI, false);
             context.stroke();
+            drawPath();
         }
 
 
@@ -139,6 +143,31 @@ $this->append('script');
         $("#theta").text(readT);
     }
 
+    var path = new ROSLIB.Topic({
+        ros: ros,
+        name: "/move_base/NavfnROS/plan",
+        messageType: 'nav_msgs/Path'
+    });
+
+    path.subscribe(function(message){
+        var emptyArr = [];
+        var arr = message.poses;
+        for(var i = 0; i < arr.length; i++){
+            var pose = arr[i].pose.position;
+            emptyArr.push(pose);
+        }
+
+        obj = emptyArr;
+    });
+
+    function drawPath(){
+          for(var k = 0; k < obj.length-1; k++){
+            context.beginPath();
+            context.moveTo(((obj[k].x - originX) / defResolution) * (canvas.width / defWidth) - (radius / 2), (defHeight - (obj[k].y - originY) / defResolution) * (canvas.height / defHeight) - (radius / 2));
+            context.lineTo(((obj[k+1].x - originX) / defResolution) * (canvas.width / defWidth) - (radius / 2), (defHeight - (obj[k+1].y - originY) / defResolution) * (canvas.height / defHeight) - (radius / 2));
+            context.stroke();
+          }
+    }
 
     listener.subscribe(function (message) {
         readX = message.<?= $robot->topic->mes_type->x_par ?> - originX;
@@ -167,7 +196,15 @@ $this->append('script');
     var goalReached = new ROSLIB.Topic({
         ros: ros,
         name: "/move_base/result",
-        messageType: ''
+        messageType: 'move_base_msgs/MoveBaseActionResult'
+    });
+
+    goalReached.subscribe(function(message){
+        var status = message.status.status;
+        console.log(status);
+        if(status == 3){
+          goalExists = false;
+        }
     });
 
     listener3.subscribe(function (message) {

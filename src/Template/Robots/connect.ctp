@@ -100,9 +100,10 @@ $this->append('script');
         var readY = message.<?= $robot->topic->mes_type->y_par ?> - originY;
         var readT = quad_to_euler(message.pose.pose.orientation);
         var canvas = document.getElementById("mapCanvas");
-        canvas.addEventListener("mousedown", getPosition, false);
+        canvas.addEventListener("mousedown", getCursorPosition, false);
         var context = canvas.getContext('2d');
         centerX = (readX / defResolution) * (canvas.width / defWidth);
+
         centerY = (defHeight - readY / defResolution) * (canvas.height / defHeight);
         var radius = 7;
 
@@ -148,6 +149,7 @@ $this->append('script');
         defResolution = message.resolution;
         originX =  message.origin.position.x;
         originY =  message.origin.position.y;
+        listener3.unsubscribe();
     });
 
     var goal = new ROSLIB.Topic({
@@ -156,50 +158,36 @@ $this->append('script');
       messageType : 'geometry_msgs/PoseStamped'
     });
 
-    function getPosition(event)
-      {
-        var positionX = new Number();
-        var positionY = new Number();
+    function getCursorPosition(event) {
         var canvas = document.getElementById("mapCanvas");
-
-        if (event.x != undefined && event.y != undefined)
-        {
-          positionX = event.x;
-          positionY = event.y;
-        }
-        else // Firefox method to get the position
-        {
-          positionX = event.clientX + document.body.scrollLeft +
-              document.documentElement.scrollLeft;
-          positionY = event.clientY + document.body.scrollTop +
-              document.documentElement.scrollTop;
-        }
-
-        positionX -= canvas.offsetLeft;
-        positionY -= canvas.offsetTop;
+        var rect = canvas.getBoundingClientRect();
+        var positionX = event.clientX - rect.left;
+        var positionY = event.clientY - rect.top;
+        console.log("x: " + positionX + " y: " + positionY);
 
         alert("x: " + positionX + "  y: " + positionY);
-        
-          var sequence = 0;
 
-          var poseStamped = new ROSLIB.Message({
-            header : {
-              seq : sequence++,
-              stamp : (new Date).getTime(),
-              frame_id : "/map"
-            },
-            pose : {
-              position : new ROSLIB.Vector3({
-                x: (positionX / canvas.width),
-                y: (positionY / canvas.height),
-                z: 0
-              }),
-              orientation : new ROSLIB.Quaternion()
-            }
-          });
-          console.log(poseStamped);
-          goal.publish(poseStamped);
-      }
+        var sequence = 0;
+
+        var poseStamped = new ROSLIB.Message({
+          header : {
+            seq : sequence,
+            stamp : (new Date).getTime(),
+            frame_id : "/odom"
+          },
+          pose : {
+            position : new ROSLIB.Vector3({
+              x: (positionX * defWidth * defResolution / canvas.width) + originX ,
+              y: (-((positionY * defHeight / canvas.height) - defHeight)) * defResolution + originY,
+              z: 0
+            }),
+            orientation : new ROSLIB.Quaternion()
+          }
+        });
+        sequence = sequence + 1;
+        console.log(poseStamped);
+        goal.publish(poseStamped);
+    }
 
     $(function () {
         var viewer = new ROS2D.Viewer({
@@ -219,13 +207,11 @@ $this->append('script');
         });
 
     });
-
-
 </script>
 
 <?php $this->end(); ?>
 
-<h1>Simple roslib Example</h1>
+<h1>Iteration 3</h1>
 <div>
     <span>X cord:</span>
     <span id="x_cord"></span>
@@ -237,7 +223,6 @@ $this->append('script');
     <span id="theta"></span>
     <br>
 </div>
-
 
 <div id="myContainer">
     <div id="map" class="map"></div>

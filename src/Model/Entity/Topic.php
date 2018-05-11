@@ -10,10 +10,6 @@ use Cake\ORM\Entity;
  * @property int $user_id
  * @property string $name
  * @property int $mes_id
- * @property int $max_x
- * @property int $min_x
- * @property int $max_y
- * @property int $min_y
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\MesType $mes_type
@@ -35,10 +31,6 @@ class Topic extends Entity
         'user_id' => true,
         'name' => true,
         'mes_id' => true,
-        'max_x' => true,
-        'min_x' => true,
-        'max_y' => true,
-        'min_y' => true,
         'user' => true,
         'mes_type' => true,
         'robots' => true

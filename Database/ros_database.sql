@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2018 at 11:28 PM
+-- Generation Time: May 11, 2018 at 09:52 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -35,13 +35,6 @@ CREATE TABLE `mes_types` (
   `t_par` varchar(255) COLLATE utf16_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_turkish_ci;
 
---
--- Dumping data for table `mes_types`
---
-
-INSERT INTO `mes_types` (`id`, `user_id`, `name`, `x_par`, `y_par`, `t_par`) VALUES
-(2, 1, 'turtlesim/Pose', 'x', 'y', 'theta');
-
 -- --------------------------------------------------------
 
 --
@@ -56,13 +49,6 @@ CREATE TABLE `robots` (
   `topic_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_turkish_ci;
 
---
--- Dumping data for table `robots`
---
-
-INSERT INTO `robots` (`id`, `user_id`, `ip_address`, `port`, `topic_id`) VALUES
-(1, 1, '167.99.201.200', '9090', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -73,19 +59,8 @@ CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf16_turkish_ci NOT NULL,
-  `mes_id` int(11) NOT NULL,
-  `max_x` double NOT NULL,
-  `min_x` double NOT NULL,
-  `max_y` double NOT NULL,
-  `min_y` double NOT NULL
+  `mes_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_turkish_ci;
-
---
--- Dumping data for table `topics`
---
-
-INSERT INTO `topics` (`id`, `user_id`, `name`, `mes_id`, `max_x`, `min_x`, `max_y`, `min_y`) VALUES
-(1, 1, '/turtle1/pose', 2, 11.088889122009, 0, 11.088889122009, 0);
 
 -- --------------------------------------------------------
 
@@ -105,13 +80,6 @@ CREATE TABLE `users` (
   `created` timestamp NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_turkish_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `password`, `activation_code`, `activated`, `forgotten_password_code`, `first_name`, `last_name`, `created`, `modified`) VALUES
-(1, 'root@root.com', '$2y$10$Xm36CwWM3j/QlxGSdnoFt.YYJ4w2KDcw6JVmVUxOPEfnQGhyTX6ci', 'JpnAvkNsmQygJ3UTByxFrrHqdi5wodVNWNVAk8kK', 1, NULL, 'root', 'cemal', '2018-04-10 22:07:31', '2018-04-10 22:07:31');
 
 --
 -- Indexes for dumped tables
@@ -165,7 +133,7 @@ ALTER TABLE `robots`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --

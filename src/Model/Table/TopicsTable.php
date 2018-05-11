@@ -69,26 +69,6 @@ class TopicsTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
-        $validator
-            ->decimal('max_x')
-            ->requirePresence('max_x', 'create')
-            ->notEmpty('max_x');
-
-        $validator
-            ->decimal('min_x')
-            ->requirePresence('min_x', 'create')
-            ->notEmpty('min_x');
-
-        $validator
-            ->decimal('max_y')
-            ->requirePresence('max_y', 'create')
-            ->notEmpty('max_y');
-
-        $validator
-            ->decimal('min_y')
-            ->requirePresence('min_y', 'create')
-            ->notEmpty('min_y');
-
         return $validator;
     }
 

@@ -56,10 +56,6 @@ class TopicsController extends AppController
         if ($this->request->is('post')) {
             $topic = $this->Topics->patchEntity($topic, $this->request->getData());
             $topic->user_id = $this->Auth->user("id");
-            $topic->max_y = 0;
-            $topic->max_x = 0;
-            $topic->min_y = 0;
-            $topic->min_x = 0;
 
             if ($this->Topics->save($topic)) {
                 $this->Flash->success(__('The topic has been saved.'));
@@ -87,6 +83,7 @@ class TopicsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $topic = $this->Topics->patchEntity($topic, $this->request->getData());
+            $topic->user_id = $this->Auth->user('id');
             if ($this->Topics->save($topic)) {
                 $this->Flash->success(__('The topic has been saved.'));
 

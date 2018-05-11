@@ -30,22 +30,6 @@
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($topic->id) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Max X') ?></th>
-            <td><?= $this->Number->format($topic->max_x) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Min X') ?></th>
-            <td><?= $this->Number->format($topic->min_x) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Max Y') ?></th>
-            <td><?= $this->Number->format($topic->max_y) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Min Y') ?></th>
-            <td><?= $this->Number->format($topic->min_y) ?></td>
-        </tr>
     </table>
     <div class="related">
         <h4><?= __('Related Robots') ?></h4>

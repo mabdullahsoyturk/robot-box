@@ -13,10 +13,6 @@
             echo $this->Form->control('user_id', ['options' => $users]);
             echo $this->Form->control('name');
             echo $this->Form->control('mes_id', ['options' => $mesTypes]);
-            echo $this->Form->control('max_x');
-            echo $this->Form->control('min_x');
-            echo $this->Form->control('max_y');
-            echo $this->Form->control('min_y');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

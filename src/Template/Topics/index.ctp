@@ -17,10 +17,6 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('mes_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('max_x') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('min_x') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('max_y') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('min_y') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -29,10 +25,6 @@
             <tr>
                 <td><?= h($topic->name) ?></td>
                 <td><?= $topic->has('mes_type') ? $this->Html->link($topic->mes_type->name, ['controller' => 'MesTypes', 'action' => 'view', $topic->mes_type->id]) : '' ?></td>
-                <td><?= $this->Number->format($topic->max_x) ?></td>
-                <td><?= $this->Number->format($topic->min_x) ?></td>
-                <td><?= $this->Number->format($topic->max_y) ?></td>
-                <td><?= $this->Number->format($topic->min_y) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $topic->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $topic->id]) ?>

@@ -21,10 +21,6 @@ class TopicsFixture extends TestFixture
         'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf16_turkish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'mes_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'max_x' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'min_x' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'max_y' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'min_y' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'user_id' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
             'mes_id' => ['type' => 'index', 'columns' => ['mes_id'], 'length' => []],
@@ -51,11 +47,7 @@ class TopicsFixture extends TestFixture
             'id' => 1,
             'user_id' => 1,
             'name' => 'Lorem ipsum dolor sit amet',
-            'mes_id' => 1,
-            'max_x' => 1,
-            'min_x' => 1,
-            'max_y' => 1,
-            'min_y' => 1
+            'mes_id' => 1
         ],
     ];
 }

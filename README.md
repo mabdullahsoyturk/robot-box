@@ -1,10 +1,13 @@
 # UI For Warehouse Robot
 
 
-UI For Warehouse Robot is a ROS project that can be used to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot in any browser. Also, you can give a goal to the robot through map in the browser.
+UI For Warehouse Robot is a ROS Kinetic project that can be used to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot in any browser. Also, you can give a goal to the robot through map in the browser.
 
 
-## Requirements
+## Pre-installation
+
+- Ubuntu 16.04
+- [ROS Kinetic Kame](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 
 ### LAMP
 
@@ -90,6 +93,14 @@ After that, open `app.php`, and change the `'my_app'`, `'secret'` and `'my_app'`
 
 ## Tutorial
 
+### Requirements
+
+- Robot must has a map server
+- Robot must has a camera
+- Robot must publish it's position through some topic.
+
+> This project has support only TurtleBot for now. Support for other robots will be added soon. 
+
 ### Launching [Turtlebot on Gazebo](http://wiki.ros.org/turtlebot_gazebo/Tutorials/indigo/Make%20a%20map%20and%20navigate%20with%20it#Make_a_map)
 
 First of all, you need to launch the Gazebo in order to create a virtual environment for Turtlebot.
@@ -109,6 +120,15 @@ $ roslaunch turtlebot_gazebo amcl_demo.launch map_file:=<full path to your map Y
 ```
 
 Or if you prefer to use an already created map, just omit the map_file argument.
+
+
+### Running [Rviz](http://wiki.ros.org/rviz)
+
+You need to launch the Rviz to be able to give goal to the robot.
+
+```bash
+$ roslaunch turtlebot_rviz_launchers view_navigation.launch
+```
 
 ### Controlling the Turtlebot with [Keyboard Teleop](http://wiki.ros.org/turtlebot_teleop/Tutorials/Keyboard%20Teleop)
 
@@ -130,5 +150,30 @@ $ roslaunch rosbridge_server rosbridge_websocket.launch
 
 ### Usage
 
-Now, everything is ready. Go to the our project in your browser. After Signup/Login, first of all, you need to create your `message type` and `topic`. After that you can create your `robot`. Finally, to be able to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot, just tap the `connect` button.
+Now, everything is ready. Go to the our project in your browser. After Signup/Login, first of all, you need to create your `message type`.
 
+For example, if you are using Turtlebot; 
+
+```
+Message name = "nav_msgs/Odometry"
+X paramater = "pose.pose.position.x"
+Y paramater = "pose.pose.position.y"
+Theta(Angle) paramater = "pose.pose.position.z"
+```
+
+Then you need to create your `topic`.
+
+```
+Topic = "/odom"
+Mes = nav_msgs/Odometry (Select message that you've created before.)
+```
+
+After that you can create your `robot`. 
+
+```
+IP address = Your IP address (If you are on localhost just "localhost".)
+Port = 	9090 (Your port.)
+Topic = /odom (Select topic that you've created before.)
+```
+
+After creating your robot, just tap the connect button. When you connect to the robot, you will see the map of the environment, which Turtlebot placed, positon information and the compressed camera view of the robot. Also you can give a goal to robot with clicking the destination point on the map. You can see the global path from robot the destination point. 

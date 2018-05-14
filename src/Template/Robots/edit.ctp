@@ -10,10 +10,10 @@
     <fieldset>
         <legend><?= __('Edit Robot') ?></legend>
         <?php
-            echo $this->Form->control('user_id', ['options' => $users]);
-            echo $this->Form->control('ip_address');
-            echo $this->Form->control('port');
-            echo $this->Form->control('topic_id', ['options' => $topics]);
+        echo $this->Form->control('name');
+        echo $this->Form->control('ip_address');
+        echo $this->Form->control('port');
+        echo $this->Form->control('topic_id', ['options' => $topics]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

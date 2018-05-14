@@ -7,6 +7,7 @@ use Cake\ORM\Entity;
  * Robot Entity
  *
  * @property int $id
+ * @property string $name
  * @property int $user_id
  * @property string $ip_address
  * @property string $port
@@ -14,7 +15,6 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Topic $topic
- * @property \App\Model\Entity\Map $map
  */
 class Robot extends Entity
 {
@@ -29,12 +29,12 @@ class Robot extends Entity
      * @var array
      */
     protected $_accessible = [
+        'name' => true,
         'user_id' => true,
         'ip_address' => true,
         'port' => true,
         'topic_id' => true,
         'user' => true,
-        'topic' => true,
-        'map' => true
+        'topic' => true
     ];
 }

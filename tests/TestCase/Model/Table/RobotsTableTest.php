@@ -26,9 +26,7 @@ class RobotsTableTest extends TestCase
     public $fixtures = [
         'app.robots',
         'app.users',
-        'app.topics',
-        'app.mes_types',
-        'app.maps'
+        'app.topics'
     ];
 
     /**

@@ -12,11 +12,11 @@
     </ul>
 </nav>
 <div class="robots view large-9 medium-8 columns content">
-    <h3><?= h($robot->id) ?></h3>
+    <h3><?= h($robot->name) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $robot->has('user') ? $this->Html->link($robot->user->id, ['controller' => 'Users', 'action' => 'view', $robot->user->id]) : '' ?></td>
+            <th scope="row"><?= __('Name') ?></th>
+            <td><?= h($robot->name) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Ip Address') ?></th>

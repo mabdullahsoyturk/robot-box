@@ -19,6 +19,7 @@
     <fieldset>
         <legend><?= __('Add Robot') ?></legend>
         <?php
+        echo $this->Form->control('name');
         echo $this->Form->control('ip_address');
         echo $this->Form->control('port');
         echo $this->Form->control('topic_id', ['options' => $topics]);

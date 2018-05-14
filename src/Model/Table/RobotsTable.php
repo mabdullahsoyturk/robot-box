@@ -60,6 +60,12 @@ class RobotsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->scalar('name')
+            ->maxLength('name', 100)
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
+
+        $validator
             ->scalar('ip_address')
             ->maxLength('ip_address', 50)
             ->requirePresence('ip_address', 'create')

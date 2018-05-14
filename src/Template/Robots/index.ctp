@@ -15,6 +15,7 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
+                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('ip_address') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('port') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('topic_id') ?></th>
@@ -24,6 +25,7 @@
         <tbody>
             <?php foreach ($robots as $robot): ?>
             <tr>
+                <td><?= h($robot->name) ?></td>
                 <td><?= h($robot->ip_address) ?></td>
                 <td><?= h($robot->port) ?></td>
                 <td><?= $robot->has('topic') ? $this->Html->link($robot->topic->name, ['controller' => 'Topics', 'action' => 'view', $robot->topic->id]) : '' ?></td>

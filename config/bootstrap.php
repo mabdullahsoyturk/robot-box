@@ -210,7 +210,24 @@ Type::build('timestamp')
 /*
  * Only try to load DebugKit in development mode
  * Debug Kit should not be installed on a production system
+ * Also set the debugmail
  */
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
+
+    Email::setConfigTransport('debugmail', [
+        'className' => 'Smtp',
+        'host' => 'debugmail.io',
+        'port' => 25,
+        'username' => 'h.burak.usul@gmail.com',
+        'password' => 'ebf53fd0-56c3-11e8-9c41-095dea5d053d'
+    ]);
+
+    Email::setConfig('debugmail', [
+        'transport' => 'debugmail',
+        'from' => 'info@uifwr.com',
+        'charset' => 'utf-8',
+        'headerCharset' => 'utf-8'
+    ]);
 }
+

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Mailer\Email;
+use Cake\Core\Configure;
 
 /**
  * Users Controller
@@ -16,12 +18,26 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(["add", "forgotPassword", "logout"]);
+        $this->Auth->allow(["add", "forgotPassword", "logout", "activate"]);
     }
 
     public function forgotPassword()
     {
 
+    }
+
+    public function activate($token = null){
+        if($token == null)
+            return $this->redirect(['controller'=>'pages', 'action'=>'display', 'home']);
+        $user = $this->Users->find()->where(['activation_code' => $token, 'activated' => 0])->firstOrFail();
+        $user->activated = 1;
+        if($this->Users->save($user)){
+            $this->Flash->success("Your account has been activated successfully!");
+            return $this->redirect(['controller'=>'pages', 'action'=>'display', 'home']);
+        }else{
+            $this->Flash->error("We cannot activate your account! If problem continues, ask for help from administrator.");
+            return $this->redirect(['controller'=>'pages', 'action'=>'display', 'home']);
+        }
     }
 
     /**
@@ -72,10 +88,18 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user->activation_code = $this->createToken();
-            $user->activated = 1; //For now
+            $user->activated = 0; //For now
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $email = new Email('debugmail');
+                $email
+                    ->setTemplate('activation')
+                    ->setEmailFormat("both")
+                    ->setViewVars(['token' => $user->activation_code])
+                    ->setSubject("UI For Warehouse Robot Activation Mail")
+                    ->setTo($user->email)
+                    ->send();
 
+                $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index', 'controller' => 'pages']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));

@@ -50,17 +50,21 @@ $this->append('script');
     var mapOriginX = 0;
     var mapOriginY = 0;
     var canvas;
-    var context = null;
+    var context;
     var xCoordinateOnRobot = 0;
     var yCoordinateOnRobot = 0;
     var angleOnRobot = 0;
     var xCoordinateOnMap = 0;
     var yCoordinateOnMap = 0;
     var positions = [];
-    var radius = 7;
+    var diameter = 7;
     var sequence = 0;
     var goalExists = false;
-    var goalX, goalY;
+    var goals = [];
+    var clickedPositions = [];
+    var goalToGo = 0;
+    var clickTracker = 0;
+    var isFinished = false;
 
     $(document).ready(function(){
         canvas = document.getElementById("mapCanvas");
@@ -119,11 +123,11 @@ $this->append('script');
     robotTopic.subscribe(function (message) {
         xCoordinateOnRobot = message.<?= $robot->topic->mes_type->x_par ?> - mapOriginX;
         yCoordinateOnRobot = message.<?= $robot->topic->mes_type->y_par ?> - mapOriginY;
-        angleOnRobot = quaternionToEuler(message.pose.pose.orientation);
+        angleOnRobot = getRobotsAngleFromQuaternion(message.pose.pose.orientation);
         drawRobot();
     });
 
-    function quaternionToEuler(orientation){
+    function getRobotsAngleFromQuaternion(orientation){
         let w = orientation.w;
         let z = orientation.z;
         let sinus = 2 * w * z;
@@ -132,12 +136,15 @@ $this->append('script');
     }
 
     function drawRobot(){
+        if(canvas == undefined) canvas = document.getElementById("mapCanvas");
+        if(context == undefined) context = canvas.getContext('2d');
+
         xCoordinateOnMap = calculateXCoordinate();
         yCoordinateOnMap = calculateYCoordinate();
 
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.beginPath();
-        context.arc(xCoordinateOnMap , yCoordinateOnMap, radius, 0, 2 * Math.PI, false);
+        context.arc(xCoordinateOnMap , yCoordinateOnMap, diameter, 0, 2 * Math.PI, false);
         context.fillStyle = 'green';
         context.fill();
         context.lineWidth = 2;
@@ -146,26 +153,23 @@ $this->append('script');
 
         context.beginPath();
         context.moveTo(xCoordinateOnMap, yCoordinateOnMap);
-        context.lineTo(xCoordinateOnMap - radius * Math.sin(angleOnRobot - Math.PI / 2), yCoordinateOnMap - radius * Math.cos(angleOnRobot - Math.PI / 2));
+        context.lineTo(xCoordinateOnMap - diameter * Math.sin(angleOnRobot - Math.PI / 2), yCoordinateOnMap - diameter * Math.cos(angleOnRobot - Math.PI / 2));
         context.stroke();
 
         if(goalExists){
-            context.beginPath();
-            context.arc(goalX -3, goalY -3, 3 , 0, 2 * Math.PI, false);
-            context.stroke();
-            drawPath();
+          drawGoals();
+          drawPath();
         }
-
 
         displayCoordinatesAndAngle();
     }
 
     function calculateXCoordinate(){
-        return (xCoordinateOnRobot / mapResolution) * (canvas.width / mapWidth) - (radius / 2);
+        return (xCoordinateOnRobot / mapResolution) * (canvas.width / mapWidth) - (diameter / 2);
     }
 
     function calculateYCoordinate(){
-        return (mapHeight - yCoordinateOnRobot / mapResolution) * (canvas.height / mapHeight) - (radius / 2);
+        return (mapHeight - yCoordinateOnRobot / mapResolution) * (canvas.height / mapHeight) - (diameter / 2);
     }
 
     function displayCoordinatesAndAngle(){
@@ -194,8 +198,8 @@ $this->append('script');
     function drawPath(){
           for(var k = 0; k < positions.length-1; k++){
             context.beginPath();
-            context.moveTo(((positions[k].x - mapOriginX) / mapResolution) * (canvas.width / mapWidth) - (radius / 2), (mapHeight - (positions[k].y - mapOriginY) / mapResolution) * (canvas.height / mapHeight) - (radius / 2));
-            context.lineTo(((positions[k+1].x - mapOriginX) / mapResolution) * (canvas.width / mapWidth) - (radius / 2), (mapHeight - (positions[k+1].y - mapOriginY) / mapResolution) * (canvas.height / mapHeight) - (radius / 2));
+            context.moveTo(((positions[k].x - mapOriginX) / mapResolution) * (canvas.width / mapWidth) - (diameter / 2), (mapHeight - (positions[k].y - mapOriginY) / mapResolution) * (canvas.height / mapHeight) - (diameter / 2));
+            context.lineTo(((positions[k+1].x - mapOriginX) / mapResolution) * (canvas.width / mapWidth) - (diameter / 2), (mapHeight - (positions[k+1].y - mapOriginY) / mapResolution) * (canvas.height / mapHeight) - (diameter / 2));
             context.stroke();
           }
     }
@@ -231,13 +235,29 @@ $this->append('script');
         name: "/move_base/result",
         messageType: 'move_base_msgs/MoveBaseActionResult'
     });
-
     goalResultTopic.subscribe(function(message){
         var status = message.status.status;
+
         if(status == 3){
-          goalExists = false;
+          isFinished = true;
+           goalToGo++;
+           if(goalToGo <= clickedPositions.length-1){
+              sendPositionToRobot(clickedPositions[goalToGo]);
+           }
+
+           if(goalToGo == clickedPositions.length){
+             goalExists = false;
+           }
         }
     });
+
+    function drawGoals(){
+        for(var index = 0; index < clickedPositions.length; index++){
+          context.beginPath();
+          context.arc(clickedPositions[index].x -3, clickedPositions[index].y - 3, 3 , 0, 2 * Math.PI, false);
+          context.stroke();
+        }
+    }
 
     var goalTopic = new ROSLIB.Topic({
       ros : ros,
@@ -246,21 +266,34 @@ $this->append('script');
     });
 
     goalTopic.subscribe(function (message) {
-        goalX = ((message.pose.position.x - mapOriginX) / mapResolution) * (canvas.width / mapWidth);
-        goalY = (mapHeight - (message.pose.position.y - mapOriginY) / mapResolution) * (canvas.height / mapHeight);
-        goalExists = true;
-        drawRobot();
+        var goal = {};
+
+        goal.x = ((message.pose.position.x - mapOriginX) / mapResolution) * (canvas.width / mapWidth);
+        goal.y = (mapHeight - (message.pose.position.y - mapOriginY) / mapResolution) * (canvas.height / mapHeight);
+
+        goals.push(goal);
     });
 
     function getCursorPosition(event) {
-        var rect = canvas.getBoundingClientRect();
-        var positionX = event.clientX - rect.left;
-        var positionY = event.clientY - rect.top;
+        var rectangle = canvas.getBoundingClientRect();
+        var clickedPosition = {};
+        clickedPosition.x = event.clientX - rectangle.left;
+        clickedPosition.y = event.clientY - rectangle.top;
 
-        sendPoseToRobot(positionX, positionY);
+        clickedPositions.push(clickedPosition);
+        goalExists = true;
+        if(isFinished == true){
+          sendPositionToRobot(clickedPosition);
+          isFinished = false;
+        }
+
+        if(clickTracker == 0){
+            sendPositionToRobot(clickedPosition);
+            clickTracker++;
+        }
     }
 
-    function sendPoseToRobot(positionX, positionY){
+    function sendPositionToRobot(positionToSend){
         var poseStamped = new ROSLIB.Message({
           header : {
             seq : sequence,
@@ -269,8 +302,8 @@ $this->append('script');
           },
           pose : {
             position : new ROSLIB.Vector3({
-              x: (positionX * mapWidth * mapResolution / canvas.width) + mapOriginX ,
-              y: (-((positionY * mapHeight / canvas.height) - mapHeight)) * mapResolution + mapOriginY,
+              x: (positionToSend.x * mapWidth * mapResolution / canvas.width) + mapOriginX ,
+              y: (mapHeight - (positionToSend.y * mapHeight / canvas.height)) * mapResolution + mapOriginY,
               z: 0
             }),
             orientation : new ROSLIB.Quaternion()

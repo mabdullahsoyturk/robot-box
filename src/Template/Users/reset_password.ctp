@@ -6,10 +6,11 @@
     </ul>
 </nav>
 <div class="users form large-9 medium-8 columns content">
-    <h1 class="header-title">Forgot Password?</h1>
-    <p>No need to worry</p>
+    <h1 class="header-title">Reset Password</h1>
+    <p>Pick a password that is both strong and easy to remember</p>
     <?= $this->Form->create(null) ?>
-    <?= $this->Form->Control('email') ?>
-    <?= $this->Form->button('Send Password Reset Link') ?>
+    <?= $this->Form->Control('password', ['label' => 'Your New Password']) ?>
+    <?= $this->Form->Control('password2', ['label' => 'Again..', 'type' => 'password']) ?>
+    <?= $this->Form->button('Reset My Password') ?>
     <?= $this->Form->end(); ?>
 </div>

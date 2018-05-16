@@ -1,8 +1,8 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * User Entity
@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property string $activation_code
  * @property bool $activated
  * @property string $forgotten_password_code
+ * @property \Cake\I18n\FrozenTime $forgotten_password_date
  * @property string $first_name
  * @property string $last_name
  * @property \Cake\I18n\FrozenTime $created
@@ -36,10 +37,20 @@ class User extends Entity
         'activation_code' => true,
         'activated' => true,
         'forgotten_password_code' => true,
+        'forgotten_password_date' => true,
         'first_name' => true,
         'last_name' => true,
         'created' => true,
         'modified' => true
+    ];
+
+    /**
+     * Fields that are excluded from JSON versions of the entity.
+     *
+     * @var array
+     */
+    protected $_hidden = [
+        'password'
     ];
 
     protected function _setPassword($value)
@@ -50,13 +61,4 @@ class User extends Entity
             return $hasher->hash($value);
         }
     }
-
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
-    protected $_hidden = [
-        'password'
-    ];
 }

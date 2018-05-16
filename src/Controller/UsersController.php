@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-use App\Controller\AppController;
+use Cake\I18n\Time;
+
+;
+
 use Cake\Mailer\Email;
-use Cake\Core\Configure;
 
 /**
  * Users Controller
@@ -18,25 +20,77 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(["add", "forgotPassword", "logout", "activate"]);
+        $this->Auth->allow(["add", "forgotPassword", "logout", "activate", "resetPassword"]);
     }
 
     public function forgotPassword()
     {
+        if ($this->request->is("post")) {
+            $email = $this->request->getData("email");
+            $user = $this->Users->find()->where(['email' => $email, 'activated' => 1])->firstOrFail();
+            if ($user->forgotten_password_date == null || !$user->forgotten_password_date->wasWithinLast("1 day")) {
+                $user->forgotten_password_code = $this->createToken("40");
+                $user->forgotten_password_date = Time::now();
+                if ($this->Users->save($user)) {
+                    $email = new Email('debugmail');
+                    $email
+                        ->setTemplate('forgotPassword')
+                        ->setEmailFormat("both")
+                        ->setViewVars(['token' => $user->forgotten_password_code])
+                        ->setSubject("UI For Warehouse Robot Password Reset")
+                        ->setTo($user->email)
+                        ->send();
+                    $this->Flash->success(__("An email to reset your password has been sent to your email address"));
+                } else {
+                    $this->Flash->error(__('Something went wrong, please try again later!'));
+                }
+            } else {
+                $this->Flash->error(__('You cannot demand 2 password reset links in the same day'));
+            }
 
+        }
     }
 
-    public function activate($token = null){
-        if($token == null)
-            return $this->redirect(['controller'=>'pages', 'action'=>'display', 'home']);
+    public function resetPassword($token = null)
+    {
+        if ($token == null)
+            return $this->redirect(['action' => 'display', 'controller' => 'Pages', 'home']);
+
+        $user = $this->Users->find()->where(['forgotten_password_code' => $token, 'forgotten_password_date >' => Time::now()->subDay(1)]);
+        if ($user->count() == 0)
+            return $this->redirect(['action' => 'display', 'controller' => 'Pages', 'home']);
+
+        $user = $user->first();
+        if ($this->request->is('post')) {
+            $newPassword = $this->request->getData("password");
+            $newPasswordConfirmation = $this->request->getData("password2");
+            if ($newPassword != $newPasswordConfirmation) {
+                $this->Flash->error(__('Passwords do not match'));
+            } else {
+                $user->password = $newPassword;
+                $user->forgotten_password_code = null;
+                $user->forgotten_password_date = null;
+                if ($this->Users->save($user))
+                    $this->Flash->success("Your password has been changed successfully");
+                else
+                    $this->Flash->error(__('Something went wrong, please try again later'));
+                return $this->redirect(['action' => 'display', 'controller' => 'Pages', 'home']);
+            }
+        }
+    }
+
+    public function activate($token = null)
+    {
+        if ($token == null)
+            return $this->redirect(['controller' => 'pages', 'action' => 'display', 'home']);
         $user = $this->Users->find()->where(['activation_code' => $token, 'activated' => 0])->firstOrFail();
         $user->activated = 1;
-        if($this->Users->save($user)){
+        if ($this->Users->save($user)) {
             $this->Flash->success("Your account has been activated successfully!");
-            return $this->redirect(['controller'=>'pages', 'action'=>'display', 'home']);
-        }else{
+            return $this->redirect(['controller' => 'pages', 'action' => 'display', 'home']);
+        } else {
             $this->Flash->error("We cannot activate your account! If problem continues, ask for help from administrator.");
-            return $this->redirect(['controller'=>'pages', 'action'=>'display', 'home']);
+            return $this->redirect(['controller' => 'pages', 'action' => 'display', 'home']);
         }
     }
 
@@ -109,7 +163,7 @@ class UsersController extends AppController
 
     public function login()
     {
-        if($this->Auth->user() != null && $this->Auth->user() != false)
+        if ($this->Auth->user() != null && $this->Auth->user() != false)
             return $this->redirect(['controller' => 'pages', 'action' => 'display', 'home']);
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
@@ -172,15 +226,15 @@ class UsersController extends AppController
     }
 
     public function isAuthorized($user)
-        {
-            if (in_array($this->request->action, ['index', 'view', 'logout'])) {
-              return true;
-             }
+    {
+        if (in_array($this->request->action, ['index', 'view', 'logout'])) {
+            return true;
+        }
 
-            if (in_array($this->request->action, ['edit', 'delete'])) {
-                return false;
-             }
-        
+        if (in_array($this->request->action, ['edit', 'delete'])) {
+            return false;
+        }
+
         return parent::isAuthorized($user);
-      }
+    }
 }

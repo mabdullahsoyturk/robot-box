@@ -9,6 +9,10 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property |\Cake\ORM\Association\HasMany $MesTypes
+ * @property |\Cake\ORM\Association\HasMany $Robots
+ * @property |\Cake\ORM\Association\HasMany $Topics
+ *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -37,6 +41,16 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('MesTypes', [
+            'foreignKey' => 'user_id'
+        ]);
+        $this->hasMany('Robots', [
+            'foreignKey' => 'user_id'
+        ]);
+        $this->hasMany('Topics', [
+            'foreignKey' => 'user_id'
+        ]);
     }
 
     /**
@@ -80,6 +94,10 @@ class UsersTable extends Table
             ->allowEmpty('forgotten_password_code');
 
         $validator
+            ->dateTime('forgotten_password_date')
+            ->allowEmpty('forgotten_password_date');
+
+        $validator
             ->scalar('first_name')
             ->maxLength('first_name', 45)
             ->allowEmpty('first_name');
@@ -104,14 +122,5 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['email']));
 
         return $rules;
-    }
-
-    public function findAuth(\Cake\ORM\Query $query, array $options)
-    {
-        $query
-            ->select(['id', 'email', 'password'])
-            ->where(['Users.activated' => 1]);
-
-        return $query;
     }
 }

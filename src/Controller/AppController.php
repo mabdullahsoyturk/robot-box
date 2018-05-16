@@ -77,7 +77,7 @@ class AppController extends Controller
     public function beforeRender(Event $event)
     {
         $this->set("loggedIn", $this->Auth != null && $this->Auth->user() != null);
-        $this->set("user", $this->Auth->user());
+        $this->set("user", $this->Auth != null ? $this->Auth->user() : null);
         return parent::beforeRender($event);
     }
 

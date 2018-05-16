@@ -80,4 +80,14 @@ class UsersTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test findAuth method
+     *
+     * @return void
+     */
+    public function testFindAuth()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

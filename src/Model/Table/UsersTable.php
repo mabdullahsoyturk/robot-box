@@ -123,4 +123,13 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    public function findAuth(\Cake\ORM\Query $query, array $options)
+    {
+        $query
+            ->select(['id', 'email', 'password'])
+            ->where(['Users.activated' => 1]);
+
+        return $query;
+    }
 }

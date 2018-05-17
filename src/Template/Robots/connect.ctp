@@ -257,6 +257,14 @@ $this->append('script');
           context.arc(clickedPositions[index].x -3, clickedPositions[index].y - 3, 3 , 0, 2 * Math.PI, false);
           context.stroke();
         }
+
+        var text = "<ul>";
+        for (var i = 0; i < clickedPositions.length; i++) {
+            text += "<li>" + "x: " + clickedPositions[i].x + ", y: " + clickedPositions[i].y + "</li>";
+        }
+        text += "</ul>";
+
+        document.getElementById("goals").innerHTML = text;
     }
 
     var goalTopic = new ROSLIB.Topic({
@@ -353,4 +361,8 @@ $this->append('script');
     <p id="closed" style="display:none">
         Connection closed.
     </p>
+</div>
+
+<div id="goalsContainer">
+  <div id="goals"></div>
 </div>

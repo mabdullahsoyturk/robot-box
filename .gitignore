@@ -6,6 +6,12 @@
 /tmp/*
 /vendor/*
 
+# Migrations Lock File #
+/config/Migrations/schema-dump-default.lock
+
+
+
+
 # OS generated files #
 ######################
 .DS_Store

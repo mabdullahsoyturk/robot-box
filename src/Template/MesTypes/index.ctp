@@ -11,33 +11,37 @@
     </ul>
 </nav>
 <div class="mesTypes index large-9 medium-8 columns content">
-    <h3><?= __('Mes Types') ?></h3>
+    <h3><?= __('Message Types') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('x_par') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('y_par') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('t_par') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
+        <tr>
+            <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+            <th scope="col"><?= __('Is Public') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('x_par') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('y_par') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('t_par') ?></th>
+            <th scope="col" class="actions"><?= __('Actions') ?></th>
+        </tr>
         </thead>
         <tbody>
-            <?php foreach ($mesTypes as $mesType): ?>
+        <?php foreach ($mesTypes as $mesType): ?>
             <tr>
                 <td><?= $this->Number->format($mesType->id) ?></td>
+                <td><?= $mesType->belongsToUser ? __('No') : __('Yes') ?></td>
                 <td><?= h($mesType->name) ?></td>
                 <td><?= h($mesType->x_par) ?></td>
                 <td><?= h($mesType->y_par) ?></td>
                 <td><?= h($mesType->t_par) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $mesType->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $mesType->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $mesType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $mesType->id)]) ?>
+                    <?php if ($mesType->belongsToUser): ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $mesType->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $mesType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $mesType->id)]) ?>
+                    <?php endif; ?>
                 </td>
             </tr>
-            <?php endforeach; ?>
+        <?php endforeach; ?>
         </tbody>
     </table>
     <div class="paginator">

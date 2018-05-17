@@ -102,7 +102,6 @@ class UsersController extends AppController
     public function index()
     {
         $users = $this->paginate($this->Users);
-
         $this->set(compact('users'));
     }
 
@@ -227,12 +226,12 @@ class UsersController extends AppController
 
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['index', 'view', 'logout'])) {
+        if (in_array($this->request->action, ['logout'])) {
             return true;
         }
 
-        if (in_array($this->request->action, ['edit', 'delete'])) {
-            return false;
+        if (in_array($this->request->action, ['view', 'index', 'edit', 'delete'])) {
+            return $this->isAdmin($user['id']);
         }
 
         return parent::isAuthorized($user);

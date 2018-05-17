@@ -29,6 +29,7 @@
             echo $this->Form->control('x_par', ['label' => 'X Parameter']);
             echo $this->Form->control('y_par', ['label' => 'Y Parameter']);
             echo $this->Form->control('t_par', ['label' => 'Theta(Angle) Parameter']);
+            echo isset($admin) && $admin ? $this->Form->control("is_public_message_type") : "";
         ?>
     </fieldset>
     <?= $this->Form->button(__('Add')) ?>

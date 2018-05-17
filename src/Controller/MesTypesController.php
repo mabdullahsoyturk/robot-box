@@ -23,8 +23,10 @@ class MesTypesController extends AppController
         $this->paginate = [
             'contain' => ['Users']
         ];
-        $mesTypes = $this->paginate($this->MesTypes->find()->where(['MesTypes.user_id' => $this->Auth->user('id')]));
-
+        $mesTypes = $this->paginate($this->MesTypes->find()->where(['OR' => ['MesTypes.user_id' => $this->Auth->user('id'), 'is_public_message_type' => 1]]));
+        foreach ($mesTypes as $mesType){
+            $mesType->belongsToUser = $mesType->user->id == $this->Auth->user('id');
+        }
         $this->set(compact('mesTypes'));
     }
 
@@ -40,7 +42,9 @@ class MesTypesController extends AppController
         $mesType = $this->MesTypes->get($id, [
             'contain' => ['Users']
         ]);
+        $belongsToUser = $mesType->user->id == $this->Auth->user('id');
 
+        $this->set('belongsToUser', $belongsToUser);
         $this->set('mesType', $mesType);
     }
 
@@ -55,6 +59,11 @@ class MesTypesController extends AppController
         if ($this->request->is('post')) {
             $mesType = $this->MesTypes->patchEntity($mesType, $this->request->getData());
             $mesType->user_id = $this->Auth->user("id");
+            if(!$this->isAdmin($this->Auth->user('id'))){
+                $mesType->is_public_message_type = false;
+                //Only admins can add public message types
+            }
+
             if ($this->MesTypes->save($mesType)) {
                 $this->Flash->success(__('The mes type has been saved.'));
 
@@ -63,6 +72,7 @@ class MesTypesController extends AppController
             $this->Flash->error(__('The mes type could not be saved. Please, try again.'));
         }
         $this->set(compact('mesType'));
+        $this->set('admin', $this->isAdmin($this->Auth->user('id')));
     }
 
     /**
@@ -80,6 +90,11 @@ class MesTypesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $mesType = $this->MesTypes->patchEntity($mesType, $this->request->getData());
             $mesType->user_id = $this->Auth->user("id");
+            if(!$this->isAdmin($this->Auth->user('id'))){
+                $mesType->is_public_message_type = false;
+                //Only admins can add public message types
+            }
+
             if ($this->MesTypes->save($mesType)) {
                 $this->Flash->success(__('The mes type has been saved.'));
 
@@ -88,6 +103,7 @@ class MesTypesController extends AppController
             $this->Flash->error(__('The mes type could not be saved. Please, try again.'));
         }
         $this->set(compact('mesType'));
+        $this->set('admin', $this->isAdmin($this->Auth->user('id')));
     }
 
     /**
@@ -112,8 +128,14 @@ class MesTypesController extends AppController
 
     public function isAuthorized($user)
     {
+        if($this->request->action == 'view'){
+            $messageTypeId = (int)$this->request->getParam("pass")[0];
+            return $this->MesTypes->find()
+                ->where(['id' => $messageTypeId,
+                 'OR' => ['user_id' => $user['id'], 'is_public_message_type' => 1]])->count() == 1;
+        }
         if(in_array($this->request->action , ['index', 'add'])) return true;
-        if(in_array($this->request->action, ['view', 'edit', 'delete'])){
+        if(in_array($this->request->action, ['edit', 'delete'])){
             $messageTypeId = (int)$this->request->getParam("pass")[0];
             return $this->MesTypes->find()->where(['user_id' => $user['id'], 'id' => $messageTypeId])->count() == 1;
         }

@@ -24,8 +24,10 @@ class TopicsController extends AppController
         $this->paginate = [
             'contain' => ['Users', 'MesTypes']
         ];
-        $topics = $this->paginate($this->Topics->find()->where(['Topics.user_id' => $this->Auth->user('id')]));
-
+        $topics = $this->paginate($this->Topics->find()->where(['OR' => ['Topics.user_id' => $this->Auth->user('id'), 'is_public_topic' => 1]]));
+        foreach ($topics as $topic){
+            $topic->belongsToUser = $topic->user_id == $this->Auth->user('id');
+        }
         $this->set(compact('topics'));
     }
 
@@ -118,7 +120,12 @@ class TopicsController extends AppController
 
     public function isAuthorized($user)
     {
-        if(in_array($this->request->action, ['view', 'edit', 'delete'])){
+        if ($this->request->action == 'view') {
+            $topicId = (int)$this->request->getParam("pass")[0];
+            return $this->Topics->find()->where(['id' => $topicId, 'OR' => ['user_id' => $user['id'], 'is_public_topic' => 1]])->count() == 1;
+        }
+
+        if (in_array($this->request->action, ['edit', 'delete'])) {
             $topicId = (int)$this->request->getParam("pass")[0];
             return $this->Topics->find()->where(['user_id' => $user['id'], 'id' => $topicId])->count() == 1;
         }

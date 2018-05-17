@@ -81,6 +81,11 @@ class AppController extends Controller
         return parent::beforeRender($event);
     }
 
+    public function isAdmin($user_id){
+        $this->loadModel('UserGroups');
+        return $this->UserGroups->find()->contain(['Groups'])->where(['user_id' => $user_id, 'name' => 'admin'])->count() == 1;
+    }
+
     public function isAuthorized($user)
     {
         // By default deny access.

@@ -7,8 +7,10 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Message Type'), ['action' => 'edit', $mesType->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Message Type'), ['action' => 'delete', $mesType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $mesType->id)]) ?> </li>
+        <?php if (isset($belongsToUser) && $belongsToUser): ?>
+            <li><?= $this->Html->link(__('Edit Message Type'), ['action' => 'edit', $mesType->id]) ?> </li>
+            <li><?= $this->Form->postLink(__('Delete Message Type'), ['action' => 'delete', $mesType->id], ['confirm' => __('Are you sure you want to delete # {0}?', $mesType->id)]) ?> </li>
+        <?php endif; ?>
     </ul>
 </nav>
 <div class="mesTypes view large-9 medium-8 columns content">

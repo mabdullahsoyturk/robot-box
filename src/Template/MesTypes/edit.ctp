@@ -25,6 +25,7 @@
             echo $this->Form->control('x_par');
             echo $this->Form->control('y_par');
             echo $this->Form->control('t_par');
+            echo isset($admin) && $admin ? $this->Form->control("is_public_message_type") : "";
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

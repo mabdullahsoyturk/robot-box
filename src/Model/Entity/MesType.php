@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property string $x_par
  * @property string $y_par
  * @property string $t_par
+ * @property bool $is_public_message_type
  *
  * @property \App\Model\Entity\User $user
  */
@@ -33,6 +34,7 @@ class MesType extends Entity
         'x_par' => true,
         'y_par' => true,
         't_par' => true,
+        'is_public_message_type' => true,
         'user' => true
     ];
 }

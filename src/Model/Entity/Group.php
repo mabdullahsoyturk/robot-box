@@ -4,19 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Topic Entity
+ * Group Entity
  *
  * @property int $id
- * @property int $user_id
+ * @property string $tag
  * @property string $name
- * @property int $mes_id
- * @property bool $is_public_topic
  *
- * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\MesType $mes_type
- * @property \App\Model\Entity\Robot[] $robots
+ * @property \App\Model\Entity\UserGroup[] $user_groups
  */
-class Topic extends Entity
+class Group extends Entity
 {
 
     /**
@@ -29,12 +25,8 @@ class Topic extends Entity
      * @var array
      */
     protected $_accessible = [
-        'user_id' => true,
+        'tag' => true,
         'name' => true,
-        'mes_id' => true,
-        'is_public_topic' => true,
-        'user' => true,
-        'mes_type' => true,
-        'robots' => true
+        'user_groups' => true
     ];
 }

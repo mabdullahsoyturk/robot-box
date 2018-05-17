@@ -23,6 +23,7 @@ class MesTypesFixture extends TestFixture
         'x_par' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf16_turkish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'y_par' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf16_turkish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         't_par' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf16_turkish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'is_public_message_type' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
         '_indexes' => [
             'user_id' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
         ],
@@ -38,18 +39,23 @@ class MesTypesFixture extends TestFixture
     // @codingStandardsIgnoreEnd
 
     /**
-     * Records
+     * Init method
      *
-     * @var array
+     * @return void
      */
-    public $records = [
-        [
-            'id' => 1,
-            'user_id' => 1,
-            'name' => 'Lorem ipsum dolor sit amet',
-            'x_par' => 'Lorem ipsum dolor sit amet',
-            'y_par' => 'Lorem ipsum dolor sit amet',
-            't_par' => 'Lorem ipsum dolor sit amet'
-        ],
-    ];
+    public function init()
+    {
+        $this->records = [
+            [
+                'id' => 1,
+                'user_id' => 1,
+                'name' => 'Lorem ipsum dolor sit amet',
+                'x_par' => 'Lorem ipsum dolor sit amet',
+                'y_par' => 'Lorem ipsum dolor sit amet',
+                't_par' => 'Lorem ipsum dolor sit amet',
+                'is_public_message_type' => 1
+            ],
+        ];
+        parent::init();
+    }
 }

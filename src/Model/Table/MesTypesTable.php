@@ -78,6 +78,11 @@ class MesTypesTable extends Table
             ->requirePresence('t_par', 'create')
             ->notEmpty('t_par');
 
+        $validator
+            ->boolean('is_public_message_type')
+            ->requirePresence('is_public_message_type', 'create')
+            ->notEmpty('is_public_message_type');
+
         return $validator;
     }
 

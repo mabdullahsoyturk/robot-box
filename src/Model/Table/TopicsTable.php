@@ -69,6 +69,11 @@ class TopicsTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
+        $validator
+            ->boolean('is_public_topic')
+            ->requirePresence('is_public_topic', 'create')
+            ->notEmpty('is_public_topic');
+
         return $validator;
     }
 

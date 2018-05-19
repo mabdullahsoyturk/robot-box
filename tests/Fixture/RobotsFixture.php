@@ -19,6 +19,7 @@ class RobotsFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'name' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'utf16_turkish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'is_public_robot' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
         'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'ip_address' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'collate' => 'utf16_turkish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'port' => ['type' => 'string', 'length' => 8, 'null' => false, 'default' => null, 'collate' => 'utf16_turkish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -50,6 +51,7 @@ class RobotsFixture extends TestFixture
             [
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
+                'is_public_robot' => 1,
                 'user_id' => 1,
                 'ip_address' => 'Lorem ipsum dolor sit amet',
                 'port' => 'Lorem ',

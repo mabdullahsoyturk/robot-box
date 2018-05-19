@@ -112,7 +112,7 @@ $this->append('script');
         document.getElementById('closed').style.display = 'inline';
     });
 
-    ros.connect('ws://<?= $robot->ip_address ?>:<?= $robot->port ?>');
+    ros.connect('ws://<?= isset($ip) && $ip !== null ? $ip : $robot->ip_address ?>:<?= isset($port) && $port !== null ? $port : $robot->port ?>');
 
     var robotTopic = new ROSLIB.Topic({
         ros: ros,

@@ -66,6 +66,11 @@ class RobotsTable extends Table
             ->notEmpty('name');
 
         $validator
+            ->boolean('is_public_robot')
+            ->requirePresence('is_public_robot', 'create')
+            ->notEmpty('is_public_robot');
+
+        $validator
             ->scalar('ip_address')
             ->maxLength('ip_address', 50)
             ->requirePresence('ip_address', 'create')

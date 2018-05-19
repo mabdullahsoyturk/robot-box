@@ -7,8 +7,10 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Robot'), ['action' => 'edit', $robot->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Robot'), ['action' => 'delete', $robot->id], ['confirm' => __('Are you sure you want to delete # {0}?', $robot->id)]) ?> </li>
+        <?php if ($robot->belongsToUser): ?>
+            <li><?= $this->Html->link(__('Edit Robot'), ['action' => 'edit', $robot->id]) ?> </li>
+            <li><?= $this->Form->postLink(__('Delete Robot'), ['action' => 'delete', $robot->id], ['confirm' => __('Are you sure you want to delete # {0}?', $robot->id)]) ?> </li>
+        <?php endif; ?>
     </ul>
 </nav>
 <div class="robots view large-9 medium-8 columns content">
@@ -20,19 +22,19 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Ip Address') ?></th>
-            <td><?= h($robot->ip_address) ?></td>
+            <td><?= $robot->is_public_robot ? "Public Robot" : h($robot->ip_address) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Port') ?></th>
-            <td><?= h($robot->port) ?></td>
+            <td><?= $robot->is_public_robot ? "Public Robot" : h($robot->port) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Topic') ?></th>
             <td><?= $robot->has('topic') ? $this->Html->link($robot->topic->name, ['controller' => 'Topics', 'action' => 'view', $robot->topic->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($robot->id) ?></td>
+            <th scope="row"><?= __('Is Public') ?></th>
+            <td><?=$robot->is_public_robot ? "Yes" : "No" ?></td>
         </tr>
     </table>
 </div>

@@ -43,7 +43,7 @@ class TopicsController extends AppController
         $topic = $this->Topics->get($id, [
             'contain' => ['Users', 'MesTypes', 'Robots']
         ]);
-
+        $topic->belongsToUser = $topic->user_id == $this->Auth->user('id');
         $this->set('topic', $topic);
     }
 

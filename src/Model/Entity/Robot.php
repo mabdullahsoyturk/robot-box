@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
+ * @property bool $is_public_robot
  * @property int $user_id
  * @property string $ip_address
  * @property string $port
@@ -30,6 +31,7 @@ class Robot extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'is_public_robot' => true,
         'user_id' => true,
         'ip_address' => true,
         'port' => true,

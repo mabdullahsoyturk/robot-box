@@ -15,7 +15,6 @@
     <table cellpadding="0" cellspacing="0">
         <thead>
         <tr>
-            <th scope="col"><?= $this->Paginator->sort('id') ?></th>
             <th scope="col"><?= __('Is Public') ?></th>
             <th scope="col"><?= $this->Paginator->sort('name') ?></th>
             <th scope="col"><?= $this->Paginator->sort('x_par') ?></th>
@@ -27,8 +26,7 @@
         <tbody>
         <?php foreach ($mesTypes as $mesType): ?>
             <tr>
-                <td><?= $this->Number->format($mesType->id) ?></td>
-                <td><?= $mesType->belongsToUser ? __('No') : __('Yes') ?></td>
+                <td><?= $mesType->is_public_message_type ? __('Yes') : __('No') ?></td>
                 <td><?= h($mesType->name) ?></td>
                 <td><?= h($mesType->x_par) ?></td>
                 <td><?= h($mesType->y_par) ?></td>

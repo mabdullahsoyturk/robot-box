@@ -55,20 +55,61 @@ class TopicsController extends AppController
     public function add()
     {
         $topic = $this->Topics->newEntity();
+        $this->loadModel("MesTypes");
         if ($this->request->is('post')) {
             $topic = $this->Topics->patchEntity($topic, $this->request->getData());
             $topic->user_id = $this->Auth->user("id");
-
-            if ($this->Topics->save($topic)) {
-                $this->Flash->success(__('The topic has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            if(!$this->isAdmin($this->Auth->user('id')))
+                $topic->is_public_topic = false;
+            $mesType = $this->MesTypes->get($topic->mes_id);
+            if($topic->is_public_topic){
+                //Check whether also the message type is public
+                if(!$mesType->is_public_message_type){
+                    $this->Flash->error('In order to have a public topic, message type also should be public');
+                }else{
+                    //Message type and topic are public
+                    if ($this->Topics->save($topic)) {
+                        $this->Flash->success(__('The topic has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    }
+                    $this->Flash->error(__('The topic could not be saved. Please, try again.'));
+                }
+            }else{
+                //For private topics, either message type should be yours or public
+                $eligible = $mesType->user_id == $this->Auth->user('id') || $mesType->is_public_message_type;
+                if($eligible){
+                    if ($this->Topics->save($topic)) {
+                        $this->Flash->success(__('The topic has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    }
+                    $this->Flash->error(__('The topic could not be saved. Please, try again.'));
+                }else{
+                    $this->Flash->error(__('You are not authorized to do that.'));
+                }
             }
-            $this->Flash->error(__('The topic could not be saved. Please, try again.'));
         }
-        $users = $this->Topics->Users->find('list', ['limit' => 200]);
-        $mesTypes = $this->Topics->MesTypes->find('list', ['limit' => 200])->where(['user_id' => $this->Auth->user("id")]);
-        $this->set(compact('topic', 'users', 'mesTypes'));
+        $mapper = function ($mesType, $key, $mapReduce) {
+            $status  = $mesType->is_public_message_type  ? 'Public Message Types'  : 'Private Message Types';
+            $mapReduce->emitIntermediate($mesType, $status);
+        };
+
+        $reducer = function ($mesTypes, $status, $mapReduce) {
+            $arr = array();
+            foreach ($mesTypes as $mesType)
+                $arr[$mesType->id] = $mesType->name;
+            $mapReduce->emit($arr, $status);
+        };
+
+        $mesTypes = $this->Topics
+            ->MesTypes
+            ->find()
+            ->select(['name', 'id', 'is_public_message_type'])
+            ->where(['or' => ['user_id' => $this->Auth->user("id"), 'is_public_message_type' => true] ])
+            ->mapReduce($mapper, $reducer)
+            ->toArray();
+
+        $this->set(compact('topic', 'mesTypes'));
+        $this->set('admin', $this->isAdmin($this->Auth->user('id')));
     }
 
     /**
@@ -83,19 +124,64 @@ class TopicsController extends AppController
         $topic = $this->Topics->get($id, [
             'contain' => []
         ]);
+        $this->loadModel("MesTypes");
         if ($this->request->is(['patch', 'post', 'put'])) {
             $topic = $this->Topics->patchEntity($topic, $this->request->getData());
             $topic->user_id = $this->Auth->user('id');
-            if ($this->Topics->save($topic)) {
-                $this->Flash->success(__('The topic has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            if(!$this->isAdmin($this->Auth->user('id')))
+                $topic->is_public_topic = false;
+            $mesType = $this->MesTypes->get($topic->mes_id);
+            if($topic->is_public_topic){
+                //Check whether also the message type is public
+                if(!$mesType->is_public_message_type){
+                    $this->Flash->error('In order to have a public topic, message type also should be public');
+                }else{
+                    //Message type and topic are public
+                    if ($this->Topics->save($topic)) {
+                        $this->Flash->success(__('The topic has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    }
+                    $this->Flash->error(__('The topic could not be saved. Please, try again.'));
+                }
+            }else{
+                //For private topics, either message type should be yours or public
+                $eligible = $mesType->user_id == $this->Auth->user('id') || $mesType->is_public_message_type;
+                if($eligible){
+                    if ($this->Topics->save($topic)) {
+                        $this->Flash->success(__('The topic has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    }
+                    $this->Flash->error(__('The topic could not be saved. Please, try again.'));
+                }else{
+                    $this->Flash->error(__('You are not authorized to do that.'));
+                }
             }
-            $this->Flash->error(__('The topic could not be saved. Please, try again.'));
         }
         $users = $this->Topics->Users->find('list', ['limit' => 200]);
-        $mesTypes = $this->Topics->MesTypes->find('list', ['limit' => 200])->where(['user_id' => $this->Auth->user("id")]);
+
+        $mapper = function ($mesType, $key, $mapReduce) {
+            $status  = $mesType->is_public_message_type  ? 'Public Message Types'  : 'Private Message Types';
+            $mapReduce->emitIntermediate($mesType, $status);
+        };
+
+        $reducer = function ($mesTypes, $status, $mapReduce) {
+            $arr = array();
+            foreach ($mesTypes as $mesType)
+                $arr[$mesType->id] = $mesType->name;
+            $mapReduce->emit($arr, $status);
+        };
+
+        $mesTypes = $this->Topics
+            ->MesTypes
+            ->find()
+            ->select(['name', 'id', 'is_public_message_type'])
+            ->where(['or' => ['user_id' => $this->Auth->user("id"), 'is_public_message_type' => true] ])
+            ->mapReduce($mapper, $reducer)
+            ->toArray();
+
+
         $this->set(compact('topic', 'users', 'mesTypes'));
+        $this->set('admin', $this->isAdmin($this->Auth->user('id')));
     }
 
     /**

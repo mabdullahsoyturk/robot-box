@@ -33,8 +33,8 @@
             <td><?= h($mesType->t_par) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($mesType->id) ?></td>
+            <th scope="row"><?= __('Is Public') ?></th>
+            <td><?= $mesType->is_public_message_type ? "Yes" : "No"?></td>
         </tr>
     </table>
 </div>

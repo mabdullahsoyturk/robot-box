@@ -20,7 +20,7 @@ $title = 'ROS Kinetic Visualizer';
 <head>
 
     <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>
         <?= $title ?>:
         <?= $this->fetch('title') ?>
@@ -46,7 +46,7 @@ $title = 'ROS Kinetic Visualizer';
     <?= $this->Html->css('creative.css') ?>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body id="page-top">
 <nav class="top-bar expanded" data-topbar role="navigation">
@@ -84,9 +84,7 @@ $title = 'ROS Kinetic Visualizer';
     <?php endif; ?>
 </nav>
 <?= $this->Flash->render() ?>
-<div class="container clearfix">
-    <?= $this->fetch('content') ?>
-</div>
+<?= $this->fetch('content') ?>
 <footer>
 </footer>
 

@@ -141,16 +141,16 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user->activation_code = $this->createToken();
-            $user->activated = 0; //For now
+            $user->activated = 1; //For now
             if ($this->Users->save($user)) {
-                $email = new Email('debugmail');
-                $email
-                    ->setTemplate('activation')
-                    ->setEmailFormat("both")
-                    ->setViewVars(['token' => $user->activation_code])
-                    ->setSubject("UI For Warehouse Robot Activation Mail")
-                    ->setTo($user->email)
-                    ->send();
+                // $email = new Email('debugmail');
+                // $email
+                //     ->setTemplate('activation')
+                //     ->setEmailFormat("both")
+                //     ->setViewVars(['token' => $user->activation_code])
+                //     ->setSubject("UI For Warehouse Robot Activation Mail")
+                //     ->setTo($user->email)
+                //     ->send();
 
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index', 'controller' => 'pages']);

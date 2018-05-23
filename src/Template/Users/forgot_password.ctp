@@ -1,15 +1,22 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Login'), ['action' => 'login', 'controller' => 'users']) ?></li>
-        <li><?= $this->Html->link(__('Sign Up'), ['action' => 'add', 'controller' => 'users']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
-    <h1 class="header-title">Forgot Password?</h1>
-    <p>No need to worry</p>
-    <?= $this->Form->create(null) ?>
-    <?= $this->Form->Control('email') ?>
-    <?= $this->Form->button('Send Password Reset Link') ?>
-    <?= $this->Form->end(); ?>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6"> 
+             <div class="card bg-light " style="max-width: 27rem;margin: 130px auto;">
+                <div class="card-body">
+                    <div style="padding: 0 20px">
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Reset Password</h1>
+                        <hr class="my-2" >
+                        <?= $this->Form->create(null) ?>
+                        <?= $this->Form->Control('email') ?>
+                        <?= $this->Form->button(('Send Password Reset Link'), ['class' => 'btn btn-primary btn-md btn-block']) ?>
+                        <?= $this->Form->end(); ?>
+                        <hr style="border-color: grey">
+                        <div class="pull-right", style="color: grey;">
+                            Did you remember?   <span class="font-weight-bold"><?= $this->Html->link(__('Log In'), ['action' => 'login', 'controller' => 'users']) ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

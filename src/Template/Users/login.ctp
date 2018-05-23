@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6"> 
-             <div class="card bg-light " style="max-width: 27rem;margin: 130px auto;">
+             <div class="card bg-light " style="max-width: 27rem;margin: 70px auto;">
                 <div class="card-body">
                     <div style="padding: 0 20px">
                         <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Log In</h1>

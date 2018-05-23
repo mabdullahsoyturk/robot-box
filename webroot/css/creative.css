@@ -166,6 +166,32 @@ img::-moz-selection {
   #mainNav.navbar-shrink .navbar-nav > li.nav-item > a.nav-link:focus:hover {
     color: #F05F40;
   }
+
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-light,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-light:focus {
+    background-color: #F05F40;
+    color: #f4f4f4;
+  }
+
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-light:hover,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-light:focus:hover{
+    background-color: #ee4b28; 
+    color: white;
+  }
+
+
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-action,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-action:focus {
+    background-color: #fff ;
+    color: #F05F40;
+    border-color: #F05F40;
+  }
+
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-action:hover,
+  #mainNav.navbar-shrink .navbar-nav > li.nav-item > .btn-action:focus:hover{
+    background-color: #ee4b28; 
+    color: white;
+  }
 }
 
 header.masthead {
@@ -250,8 +276,34 @@ header.masthead p {
   box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
 }
 
-.card{
-   border: 0;
-            background-color: #ededed;
-            box-shadow: 8px 8px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.btn-action{
+  background-color: #F05F40 ;
+  color: #fff;
+  border: 1px solid #fff;
+  text-transform: none;
+  font-weight: 600;
 }
+
+.btn-action:hover, .btn-action:focus, .btn-action:active {
+  color: #fff;
+  background-color: #ee4b28 !important;
+}
+
+.btn-action:active, .btn-action:focus {
+  box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+}
+
+.card{
+ border: 0;
+ background-color: #ededed;
+ box-shadow: 8px 8px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navbar-custom{
+  background-color: #F05F40 !important;
+}
+
+.navbar-custom .navbar-brand {
+  color: white;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}  

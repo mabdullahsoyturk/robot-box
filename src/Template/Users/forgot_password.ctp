@@ -11,7 +11,7 @@
                         <?= $this->Form->button(('Send Password Reset Link'), ['class' => 'btn btn-primary btn-md btn-block']) ?>
                         <?= $this->Form->end(); ?>
                         <hr style="border-color: grey">
-                        <div class="pull-right", style="color: grey;">
+                        <div class="pull-right text-custom", style="color: grey;">
                             Did you remember?   <span class="font-weight-bold"><?= $this->Html->link(__('Log In'), ['action' => 'login', 'controller' => 'users']) ?></span>
                         </div>
                     </div>

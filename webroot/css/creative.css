@@ -132,7 +132,7 @@ img::-moz-selection {
     background-color: transparent;
   }
   #mainNav .navbar-brand {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9);
   }
   #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
     color: #fff;
@@ -304,6 +304,39 @@ header.masthead p {
 }
 
 .navbar-custom .navbar-brand {
-  color: white;
+  color: #963b29;
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  margin-right: 35px;
+}
+
+.custom-link,
+.custom-link:focus{
+  font-size: .9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #facec5;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  border-radius: 3px;
+  padding: 4px;
 }  
+
+.custom-link:hover,
+.custom-link:focus:hover{
+  font-size: .9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #f4f4f4;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  background-color: #ee4b28;
+}  
+
+.link-myrobot{
+  background-color: #f4f4f4 ;
+  color: #F05F40;
+  border: 0px;
+  font-weight: 700;
+}
+
+.text-custom{
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}

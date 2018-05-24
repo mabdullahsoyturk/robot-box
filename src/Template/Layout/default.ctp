@@ -50,21 +50,32 @@ $title = 'ROS Kinetic Visualizer';
 </head>
 
 <body id="page-top">
-    <nav class="navbar navbar-custom">
+
+    <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <div class="navbar-header">
-
-                <strong><?= $this->Html->link(__('ROBOT BOX'), ['action' => 'index', 'controller' => 'pages'], ['class' => 'navbar-brand']) ?></strong>
-            </div>
-
+            <strong><?= $this->Html->link(__('ROBOT BOX'), ['action' => 'index', 'controller' => 'pages'], ['class' => 'navbar-brand']) ?></strong>
             <?php if ($loggedIn): ?>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><?= $this->Html->link("Logout", ['controller' => 'users', 'action' => 'logout'], ['class' => 'btn btn-action btn-sm' ]) ?></li>
-                </ul>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <?= $this->Html->link(__('My Robots'), ['action' => 'index', 'controller' => 'robots'], ['class' => 'nav-link custom-link link-myrobot' ]) ?>
+                        </li> 
+                        <li class="nav-item"> 
+                            <?= $this->Html->link(__('My Topics'), ['action' => 'index', 'controller' => 'topics'], ['class' => 'nav-link custom-link' ]) ?>
+                        </li>
+                        <li class="nav-item">
+                            <?= $this->Html->link(__('My Message Types'), ['action' => 'index', 'controller' => 'MesTypes'], ['class' => 'nav-link custom-link' ]) ?>
+                        </li>
+                    </ul>
+                    <?= $this->Html->link("Logout", ['controller' => 'users', 'action' => 'logout'], ['class' => 'btn btn-action btn-sm' ]) ?>
+
+                </div>
             <?php endif; ?>
         </div>
     </nav>
-
 
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>

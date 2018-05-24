@@ -27,7 +27,7 @@
         
                         <hr style="border-color: grey">
 
-                        <div class="pull-right", style="color: grey;">
+                        <div class="pull-right text-custom", style="color: grey;">
                             Already have an account?   <span class="font-weight-bold"><?= $this->Html->link(__('Log In'), ['action' => 'login']) ?></span>
                         </div>
                     </div>

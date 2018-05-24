@@ -15,9 +15,9 @@
                             </fieldset>
                             <?= $this->Form->button(__('Log In'), ['class' => 'btn btn-primary btn-md btn-block']) ?>
                             <?= $this->Form->end() ?>
-                            <p class="text-center" style="margin-top: 10px; color: grey;">or <span class="font-weight-bold"><?= $this->Html->link(__('Forgot Password'), ['action' => 'forgotPassword']) ?></span></p>
+                            <p class="text-center text-custom" style="margin-top: 10px; color: grey;">or <span class="font-weight-bold"><?= $this->Html->link(__('Forgot Password'), ['action' => 'forgotPassword']) ?></span></p>
                         <hr style="border-color: grey">
-                        <div class="text-center", style="color: grey;">
+                        <div class="text-center text-custom", style="color: grey;">
                             Don't have an account? <span class="font-weight-bold"><?= $this->Html->link(__('Sign Up'), ['action' => 'add']) ?></span>
                         </div>
                     </div>

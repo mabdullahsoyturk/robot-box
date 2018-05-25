@@ -11,7 +11,7 @@ body {
 }
 
 hr {
-  max-width: 50px;
+  max-width: 70px;
   border-width: 3px;
   border-color: #F05F40;
 }
@@ -277,7 +277,7 @@ header.masthead p {
 }
 
 .btn-action{
-  background-color: #F05F40 ;
+  
   color: #fff;
   border: 1px solid #fff;
   text-transform: none;
@@ -336,4 +336,31 @@ header.masthead p {
 
 .sidebar{
   background-color: #F05F40 !important;
+}
+
+.btn-add,
+.btn-add:focus{
+    background-color: #fff;
+    color: #F05F40;
+    border-color: #F05F40;
+    margin: 20px 30px;
+    border-width: 2px;
+    font-weight: 700;
+}
+
+.btn-add:hover,
+.btn-add:focus:hover{
+    background-color: #ee4b28; 
+    color: white;
+}
+
+
+.table{
+  margin-left:  30px;
+  margin-right: 30px;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+th > .a {
+  color: white;
 }

@@ -330,13 +330,10 @@ header.masthead p {
   background-color: #ee4b28;
 }  
 
-.link-myrobot{
-  background-color: #f4f4f4 ;
-  color: #F05F40;
-  border: 0px;
-  font-weight: 700;
-}
-
 .text-custom{
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.sidebar{
+  background-color: #F05F40 !important;
 }

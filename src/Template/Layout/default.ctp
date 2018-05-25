@@ -61,7 +61,7 @@ $title = 'ROS Kinetic Visualizer';
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <?= $this->Html->link(__('My Robots'), ['action' => 'index', 'controller' => 'robots'], ['class' => 'nav-link custom-link link-myrobot' ]) ?>
+                            <?= $this->Html->link(__('My Robots'), ['action' => 'index', 'controller' => 'robots'], ['class' => 'nav-link custom-link' ]) ?>
                         </li> 
                         <li class="nav-item"> 
                             <?= $this->Html->link(__('My Topics'), ['action' => 'index', 'controller' => 'topics'], ['class' => 'nav-link custom-link' ]) ?>

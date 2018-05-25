@@ -58,16 +58,20 @@
                   <?php endforeach; ?>
                   </tbody>
               </table>
-              <div class="paginator">
-                  <ul class="pagination">
-                      <?= $this->Paginator->first('<< ' . __('first')) ?>
-                      <?= $this->Paginator->prev('< ' . __('previous')) ?>
-                      <?= $this->Paginator->numbers() ?>
-                      <?= $this->Paginator->next(__('next') . ' >') ?>
-                      <?= $this->Paginator->last(__('last') . ' >>') ?>
-                  </ul>
-                  <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-              </div>
+              
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
           </div>
         </main>
     </div>

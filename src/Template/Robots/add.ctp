@@ -4,29 +4,32 @@
  * @var \App\Model\Entity\Robot $robot
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Robots'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link("Add a new topic", ['controller'=>"topics", "action"=>"add"]) ?></li>
-    </ul>
-</nav>
-
-<div class="robots form large-9 medium-8 columns content">
-    <?= $this->Form->create($robot, ['id' => 'robot-form']) ?>
-    <fieldset>
-        <legend><?= __('Add Robot') ?></legend>
-        <?php
-        echo $this->Form->control('name');
-        echo $this->Form->control('ip_address');
-        echo $this->Form->control('port');
-        echo $this->Form->control('topic_id', ['options' => $topics]);
-        echo (isset($admin) && $admin) ? $this->Form->control('is_public_robot') : ''?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <div style="padding: 0 20px">
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Add Robot</h1>
+                        <hr class="my-2" >
+                        <?= $this->Form->create($robot, ['id' => 'robot-form']) ?>
+                        <fieldset>
+                            <?php
+                            echo $this->Form->control('name');
+                            echo $this->Form->control('ip_address');
+                            echo $this->Form->control('port');
+                            echo $this->Form->control('topic_id', ['options' => $topics]);
+                            echo (isset($admin) && $admin) ? $this->Form->control('is_public_robot') : ''?>
+                        </fieldset>
+                        <?= $this->Form->button(__('Submit')) ?>
+                        <?= $this->Form->end() ?>
+                        <hr style="border-color: grey">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 <?php if (isset($admin) && $admin): ?>
     <?php $this->append('script') ?>

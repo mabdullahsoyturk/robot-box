@@ -4,26 +4,32 @@
  * @var \App\Model\Entity\Topic $topic
  */
 ?>
-    <nav class="large-3 medium-4 columns" id="actions-sidebar">
-        <ul class="side-nav">
-            <li class="heading"><?= __('Actions') ?></li>
-            <li><?= $this->Html->link(__('List Topics'), ['action' => 'index']) ?></li>
-            <li><?= $this->Html->link(__('Add a New Message Type'), ['action' => 'add', 'controller' => 'MesTypes']) ?></li>
-        </ul>
-    </nav>
-    <div class="topics form large-9 medium-8 columns content">
-        <?= $this->Form->create($topic, ['id' => 'topic-form']) ?>
-        <fieldset>
-            <legend><?= __('Add Topic') ?></legend>
-            <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('mes_id', ['options' => $mesTypes]);
-            echo (isset($admin) && $admin) ? $this->Form->control('is_public_topic') : "";
-            ?>
-        </fieldset>
-        <?= $this->Form->button(__('Submit')) ?>
-        <?= $this->Form->end() ?>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <div style="padding: 0 20px">
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Add Topic</h1>
+                        <hr class="my-2" >
+                        <?= $this->Form->create($topic, ['id' => 'topic-form']) ?>
+                        <fieldset>
+                            <?php
+                            echo $this->Form->control('name');
+                            echo $this->Form->control('mes_id', ['options' => $mesTypes]);
+                            echo (isset($admin) && $admin) ? $this->Form->control('is_public_topic') : "";
+                            ?>
+                        </fieldset>
+                        <?= $this->Form->button(__('Submit')) ?>
+                        <?= $this->Form->end() ?>
+                        <hr style="border-color: grey">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
 <?php if (isset($admin) && $admin): ?>
     <?php $this->append('script') ?>

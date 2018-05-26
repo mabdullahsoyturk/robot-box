@@ -8,7 +8,7 @@
 
 <div class="container" style="margin-top:30px;">
 
-  <h1><?= __('My Topics') ?></h1>
+  <h1><?= __('My Message Types') ?></h1>
   <hr align="left" >
 <?php echo $this->Html->link(__('Create New Message Type'), ['action' => 'add'], ['class' => 'btn btn-md btn-action btn-add']) ?>
 

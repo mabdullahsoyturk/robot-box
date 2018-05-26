@@ -4,20 +4,31 @@
  * @var \App\Model\Entity\Topic $topic
  */
 ?>
-
-<div class="topics form large-12 medium-8 columns content">
-    <?= $this->Form->create($topic, ['id' => 'topic-form']) ?>
-    <fieldset>
-        <legend><?= __('Edit Topic') ?></legend>
-        <?php
-            echo $this->Form->control('name');
-            echo $this->Form->control('mes_id', ['options' => $mesTypes]);
-            echo $this->Form->control('is_public_topic',
-                [ (isset($admin) && $admin) ? '' : 'disabled' => (isset($admin) && $admin) ? '' : 'disabled']);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <div style="padding: 0 20px">
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey"><?= __('Edit Topic')?></h1>
+                        <hr class="my-2">
+                        <?= $this->Form->create($topic, ['id' => 'topic-form']) ?>
+                        <fieldset>
+                            <?php
+                                echo $this->Form->control('name');
+                                echo $this->Form->control('mes_id', ['options' => $mesTypes]);
+                                echo $this->Form->control('is_public_topic',
+                                    [ (isset($admin) && $admin) ? '' : 'disabled' => (isset($admin) && $admin) ? '' : 'disabled']);
+                            ?>
+                        </fieldset>
+                        <?= $this->Form->button(__('Submit')) ?>
+                        <?= $this->Form->end() ?>
+                        <hr style="border-color: grey">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -5,20 +5,33 @@
  */
 ?>
 
-<div class="robots form large-12 medium-8 columns content">
-    <?= $this->Form->create($robot, ['id' => 'robot-form']) ?>
-    <fieldset>
-        <legend><?= __('Edit Robot') ?></legend>
-        <?php
-        echo $this->Form->control('name');
-        echo $this->Form->control('ip_address');
-        echo $this->Form->control('port');
-        echo $this->Form->control('topic_id', ['options' => $topics]);
-        echo (isset($admin) && $admin ? $this->Form->control('is_public_robot') : "");
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <div style="padding: 0 20px">
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey"><?= __('Edit Robot')?></h1>
+                        <hr class="my-2">
+                        <?= $this->Form->create($robot, ['id' => 'robot-form']) ?>
+                        <fieldset>
+                            <legend><?= __('Edit Robot') ?></legend>
+                            <?php
+                            echo $this->Form->control('name');
+                            echo $this->Form->control('ip_address');
+                            echo $this->Form->control('port');
+                            echo $this->Form->control('topic_id', ['options' => $topics]);
+                            echo (isset($admin) && $admin ? $this->Form->control('is_public_robot') : "");
+                            ?>
+                        </fieldset>
+                        <?= $this->Form->button(__('Submit')) ?>
+                        <?= $this->Form->end() ?>
+                        <hr style="border-color: grey">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

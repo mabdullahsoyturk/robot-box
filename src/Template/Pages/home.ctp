@@ -18,11 +18,11 @@
           <a class="nav-link js-scroll-trigger" href="#contact">Contribute</a>
         </li>
         <li class="nav-item">
-          <?= $this->Html->link(__('LOG IN'), ['action' => 'login', 'controller' => 'Users'], ['class' => 'btn btn-md btn-action']) ?>
-        </li>
-         <li class="nav-item" style="margin-left: 16px">
-           <?= $this->Html->link(__('SIGN UP'), ['action' => 'add', 'controller' => 'Users'], ['class' => 'btn btn-light btn-md']) ?>
+           <?= $this->Html->link(__('SIGN UP'), ['action' => 'add', 'controller' => 'Users'], ['class' => 'nav-link']) ?>
          </li>
+        <li class="nav-item">
+          <?= $this->Html->link(__('LOGIN'), ['action' => 'login', 'controller' => 'Users'], ['class' => 'nav-link']) ?>
+        </li>
       </ul>
     </div>
   </div>

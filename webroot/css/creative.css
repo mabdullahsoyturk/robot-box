@@ -364,3 +364,12 @@ header.masthead p {
 th > .a {
   color: white;
 }
+
+.vertical-line{
+  border-left: 6px solid green;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 0;
+}

@@ -21,9 +21,8 @@
                             echo $this->Form->control('topic_id', ['options' => $topics]);
                             echo (isset($admin) && $admin) ? $this->Form->control('is_public_robot') : ''?>
                         </fieldset>
-                        <?= $this->Form->button(__('Submit')) ?>
+                        <div class="text-center"><?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?></div>
                         <?= $this->Form->end() ?>
-                        <hr style="border-color: grey">
                     </div>
                 </div>
             </div>

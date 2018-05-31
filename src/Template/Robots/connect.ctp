@@ -62,7 +62,6 @@ $this->append('script');
     var goalExists = false;
     var goals = [];
     var clickedPositions = [];
-    var goalToGo = 0;
     var clickTracker = 0;
     var isFinished = false;
 
@@ -141,7 +140,7 @@ $this->append('script');
         xCoordinateOnMap = calculateXCoordinate();
         yCoordinateOnMap = calculateYCoordinate();
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height); //Body of the robot
         context.beginPath();
         context.arc(xCoordinateOnMap , yCoordinateOnMap, diameter, 0, 2 * Math.PI, false);
         context.fillStyle = 'green';
@@ -150,7 +149,7 @@ $this->append('script');
         context.strokeStyle = '#003300';
         context.stroke();
 
-        context.beginPath();
+        context.beginPath();  //Angle
         context.moveTo(xCoordinateOnMap, yCoordinateOnMap);
         context.lineTo(xCoordinateOnMap - diameter * Math.sin(angleOnRobot - Math.PI / 2), yCoordinateOnMap - diameter * Math.cos(angleOnRobot - Math.PI / 2));
         context.stroke();
@@ -240,13 +239,14 @@ $this->append('script');
 
         if(status == 3){
           isFinished = true;
-           goalToGo++;
-           if(goalToGo <= clickedPositions.length-1){
-              sendPositionToRobot(clickedPositions[goalToGo]);
+          clickedPositions.shift();
+           if(clickedPositions.length > 0){
+              sendPositionToRobot(clickedPositions[0]);
            }
 
-           if(goalToGo == clickedPositions.length){
+           if(clickedPositions.length == 0){
              goalExists = false;
+             document.getElementById("goals").innerHTML = "";
            }
         }
         if(status == 4){
@@ -261,11 +261,11 @@ $this->append('script');
           context.stroke();
         }
 
-        var text = "<ul>";
+        var text = "<ol>";
         for (var i = 0; i < clickedPositions.length; i++) {
             text += "<li>" + "x: " + clickedPositions[i].x + ", y: " + clickedPositions[i].y + "</li>";
         }
-        text += "</ul>";
+        text += "</ol>";
 
         document.getElementById("goals").innerHTML = text;
     }

@@ -326,7 +326,7 @@ $this->append('script');
 
 <?php $this->end(); ?>
 
-<h1>Iteration 4</h1>
+<h1><?= $robot->name ?></h1>
 <div>
     <span>X coordinate:</span>
     <span id="x_cord"></span>
@@ -338,12 +338,42 @@ $this->append('script');
     <span id="theta"></span>
     <br>
 </div>
-
-<div id="myContainer">
-    <div id="map" class="map"></div>
-    <canvas id="mapCanvas" width="400" height="340"></canvas>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <div id="map" class="map"></div>
+                    <canvas id="mapCanvas" width="400" height="340"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <img id="cameraImg"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <div id="map" class="map"></div>
+                    <canvas id="mapCanvas" width="400" height="340"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6"> 
+             <div class="card bg-light " style="margin: 70px auto;">
+                <div class="card-body">
+                    <img id="cameraImg"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 <div id="camContainer">
     <img id="cameraImg"/>
 </div>

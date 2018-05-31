@@ -46,7 +46,7 @@ $title = 'ROS Kinetic Visualizer';
     <?= $this->Html->css('creative.css') ?>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
@@ -62,8 +62,8 @@ $title = 'ROS Kinetic Visualizer';
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <?= $this->Html->link(__('My Robots'), ['action' => 'index', 'controller' => 'robots'], ['class' => 'nav-link custom-link' ]) ?>
-                        </li> 
-                        <li class="nav-item"> 
+                        </li>
+                        <li class="nav-item">
                             <?= $this->Html->link(__('My Topics'), ['action' => 'index', 'controller' => 'topics'], ['class' => 'nav-link custom-link' ]) ?>
                         </li>
                         <li class="nav-item">

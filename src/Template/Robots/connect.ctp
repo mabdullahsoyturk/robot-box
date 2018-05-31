@@ -87,32 +87,31 @@ $this->append('script');
             viewer.shift(mapOriginX, mapOriginY);
         });
 
-    });
+        ros.connect('ws://<?= isset($ip) && $ip !== null ? $ip : $robot->ip_address ?>:<?= isset($port) && $port !== null ? $port : $robot->port ?>');
 
-    ros.on('error', function (error) {
-        document.getElementById('connecting').style.display = 'none';
-        document.getElementById('connected').style.display = 'none';
-        document.getElementById('closed').style.display = 'none';
-        document.getElementById('error').style.display = 'inline';
-        console.log(error);
-    });
+        ros.on('error', function (error) {
+            document.getElementById('connecting').style.display = 'none';
+            document.getElementById('connected').style.display = 'none';
+            document.getElementById('closed').style.display = 'none';
+            document.getElementById('error').style.display = 'inline';
+            console.log(error);
+        });
 
-    ros.on('connection', function () {
-        console.log('Connection made!');
-        document.getElementById('connecting').style.display = 'none';
-        document.getElementById('error').style.display = 'none';
-        document.getElementById('closed').style.display = 'none';
-        document.getElementById('connected').style.display = 'inline';
-    });
+        ros.on('connection', function () {
+            console.log('Connection made!');
+            document.getElementById('connecting').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('closed').style.display = 'none';
+            document.getElementById('connected').style.display = 'inline';
+        });
 
-    ros.on('close', function () {
-        console.log('Connection closed.');
-        document.getElementById('connecting').style.display = 'none';
-        document.getElementById('connected').style.display = 'none';
-        document.getElementById('closed').style.display = 'inline';
+        ros.on('close', function () {
+            console.log('Connection closed.');
+            document.getElementById('connecting').style.display = 'none';
+            document.getElementById('connected').style.display = 'none';
+            document.getElementById('closed').style.display = 'inline';
+        });
     });
-
-    ros.connect('ws://<?= isset($ip) && $ip !== null ? $ip : $robot->ip_address ?>:<?= isset($port) && $port !== null ? $port : $robot->port ?>');
 
     var robotTopic = new ROSLIB.Topic({
         ros: ros,
@@ -340,7 +339,7 @@ $this->append('script');
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-6"> 
+        <div class="col-md-6">
              <div class="card bg-light " style="margin: 70px auto;">
                 <div class="card-body">
                     <div id="map" class="map"></div>
@@ -348,7 +347,7 @@ $this->append('script');
                 </div>
             </div>
         </div>
-        <div class="col-md-6"> 
+        <div class="col-md-6">
              <div class="card bg-light " style="margin: 70px auto;">
                 <div class="card-body">
                     <img id="cameraImg"/>
@@ -357,7 +356,7 @@ $this->append('script');
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6"> 
+        <div class="col-md-6">
              <div class="card bg-light " style="margin: 70px auto;">
                 <div class="card-body">
                     <div id="map" class="map"></div>
@@ -365,7 +364,7 @@ $this->append('script');
                 </div>
             </div>
         </div>
-        <div class="col-md-6"> 
+        <div class="col-md-6">
              <div class="card bg-light " style="margin: 70px auto;">
                 <div class="card-body">
                     <img id="cameraImg"/>

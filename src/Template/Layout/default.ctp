@@ -50,11 +50,10 @@ $title = 'ROS Kinetic Visualizer';
 </head>
 
 <body id="page-top">
-
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <strong><?= $this->Html->link(__('ROBOT BOX'), ['action' => 'index', 'controller' => 'pages'], ['class' => 'navbar-brand']) ?></strong>
-            <?php if ($loggedIn): ?>
+            <?php if ($loggedIn){ ?>
+              <strong><?= $this->Html->link(__('ROBOT BOX'), ['action' => 'index', 'controller' => 'robots'], ['class' => 'navbar-brand']) ?></strong>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -73,7 +72,9 @@ $title = 'ROS Kinetic Visualizer';
                     <?= $this->Html->link("Logout", ['controller' => 'users', 'action' => 'logout'], ['class' => 'btn btn-action btn-sm' ]) ?>
 
                 </div>
-            <?php endif; ?>
+            <?php }else{ ?>
+              <strong><?= $this->Html->link(__('ROBOT BOX'), ['action' => 'index', 'controller' => 'pages'], ['class' => 'navbar-brand']) ?></strong>
+            <?php } ?>
         </div>
     </nav>
 

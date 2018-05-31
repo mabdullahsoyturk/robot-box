@@ -15,12 +15,12 @@
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('x_par') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('y_par') ?></th>
-                        <th scope="col"><?= $this->Paginator->sort('t_par') ?></th>
-                        <th scope="col"><a href="#"><?= __('Is Public') ?></a></th>
-                        <th scope="col" class="actions"><a href="#"><?= __('Actions') ?></a></th>
+                        <th scope="col" class="col-sm-2"><?= $this->Paginator->sort('name') ?></th>
+                        <th scope="col" class="col-sm-2"><?= $this->Paginator->sort('x_par') ?></th>
+                        <th scope="col" class="col-sm-2"><?= $this->Paginator->sort('y_par') ?></th>
+                        <th scope="col" class="col-sm-2"><?= $this->Paginator->sort('t_par') ?></th>
+                        <th scope="col" class="col-sm-2"><a href="#"><?= __('Is Public') ?></a></th>
+                        <th scope="col" class="col-sm-2"><a href="#"><?= __('Actions') ?></a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,5 +42,5 @@
                     <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
 </div>

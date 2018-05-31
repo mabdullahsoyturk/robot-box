@@ -9,7 +9,7 @@
 
   <h1><?= __('My Robots') ?></h1>
   <hr align="left" >
-  
+
   <?php echo $this->Html->link(__('Create New Robot'), ['action' => 'add'], ['class' => 'btn btn-md btn-action btn-add']) ?>
 
   <table class="table table-striped">

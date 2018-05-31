@@ -172,9 +172,9 @@ $this->append('script');
     }
 
     function displayCoordinatesAndAngle(){
-        $("#x_cord").text(xCoordinateOnRobot + mapOriginX);
-        $("#y_cord").text(yCoordinateOnRobot + mapOriginY);
-        $("#theta").text(angleOnRobot);
+        $("#x_cord").text((xCoordinateOnRobot + mapOriginX).toFixed(3));
+        $("#y_cord").text((yCoordinateOnRobot + mapOriginY).toFixed(3));
+        $("#theta").text((angleOnRobot).toFixed(3));
     }
 
     var pathTopic = new ROSLIB.Topic({
@@ -236,6 +236,7 @@ $this->append('script');
     });
     goalResultTopic.subscribe(function(message){
         var status = message.status.status;
+        console.log(status);
 
         if(status == 3){
           isFinished = true;
@@ -247,6 +248,9 @@ $this->append('script');
            if(goalToGo == clickedPositions.length){
              goalExists = false;
            }
+        }
+        if(status == 4){
+
         }
     });
 
@@ -325,49 +329,65 @@ $this->append('script');
 
 <?php $this->end(); ?>
 
-<h1><?= $robot->name ?></h1>
-<div>
-    <span>X coordinate:</span>
-    <span id="x_cord"></span>
-    <br>
-    <span>Y coordinate:</span>
-    <span id="y_cord"></span>
-    <br>
-    <span>Angle:</span>
-    <span id="theta"></span>
-    <br>
-</div>
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-             <div class="card bg-light " style="margin: 70px auto;">
-                <div class="card-body">
+    <h2 style="margin-top:10px;"><?= $robot->name ?></h2>
+    <hr align="left" >
+    <div class="row" style="margin: 30px auto;">
+        <div class="col-md-5">
+             <div class="card bg-light d-flex">
+                <div class="card-body align-items-center d-flex justify-content-center">
                     <div id="map" class="map"></div>
                     <canvas id="mapCanvas" width="400" height="340"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-             <div class="card bg-light " style="margin: 70px auto;">
-                <div class="card-body">
-                    <img id="cameraImg"/>
+        <div class="col-md-7">
+             <div class="card bg-light d-flex">
+                <div class="card-body align-items-center d-flex justify-content-center">
+                    <img class="image-responsive center-block" id="cameraImg" width="565" height="340"/>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-             <div class="card bg-light " style="margin: 70px auto;">
+    <div class="row" style="margin: 30px auto;">
+        <div class="col-md-5">
+             <div class="card bg-light">
                 <div class="card-body">
-                    <div id="map" class="map"></div>
-                    <canvas id="mapCanvas" width="400" height="340"></canvas>
+                  <div>
+                      <span style="font-weight:bold;">X coordinate:</span>
+                      <span id="x_cord"></span>
+                      <br>
+                      <span style="font-weight:bold;">Y coordinate:</span>
+                      <span id="y_cord"></span>
+                      <br>
+                      <span style="font-weight:bold;">Angle:</span>
+                      <span id="theta"></span>
+                      <br>
+                  </div>
+
+                  <div id="statusIndicator">
+                      <p id="connecting">
+                          <span style="font-weight:bold;">Status: </span><span style="color:blue;">Connecting to rosbridge...</span>
+                      </p>
+                      <p id="connected" style="display:none">
+                          <span style="font-weight:bold;">Status: </span><span style="color:#00D600;">Connected</span>
+                      </p>
+                      <p id="error" style="display:none">
+                        <span style="font-weight:bold;">Statuts: </span><span style="color:#FF0000;"> Error in the backend!</span>
+                      </p>
+                      <p id="closed" style="display:none">
+                          <span style="font-weight:bold;">Status: </span><span style="color:#FF0000;">Connection closed.</span>
+                      </p>
+                  </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-             <div class="card bg-light " style="margin: 70px auto;">
+        <div class="col-md-7">
+             <div class="card bg-light">
                 <div class="card-body">
-                    <img id="cameraImg"/>
+                  <div id="goalsContainer">
+                    <div id="goals"></div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -375,23 +395,4 @@ $this->append('script');
 </div>
 <div id="camContainer">
     <img id="cameraImg"/>
-</div>
-
-<div id="statusIndicator">
-    <p id="connecting">
-        Connecting to rosbridge...
-    </p>
-    <p id="connected" style="color:#00D600; display:none">
-        Connected
-    </p>
-    <p id="error" style="color:#FF0000; display:none">
-        Error in the backend!
-    </p>
-    <p id="closed" style="display:none">
-        Connection closed.
-    </p>
-</div>
-
-<div id="goalsContainer">
-  <div id="goals"></div>
 </div>

@@ -6,7 +6,7 @@
 ?>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-9"> 
+        <div class="col-md-9">
              <div class="card bg-light " style="margin: 70px auto;">
                 <div class="card-body">
                     <div style="padding: 0 20px">
@@ -21,9 +21,8 @@
                                     [ (isset($admin) && $admin) ? '' : 'disabled' => (isset($admin) && $admin) ? '' : 'disabled']);
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Submit')) ?>
+                        <div class="text-center"><?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']) ?></div>
                         <?= $this->Form->end() ?>
-                        <hr style="border-color: grey">
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@
                 <tr>
                     <td class="align-middle"><?= h($robot->name) ?></td>
                     <td class="align-middle"><?= $robot->is_public_robot ? "--" : h($robot->ip_address) ?></td>
-                    <td class="align-middle"><?= $robot->is_public_robot ? "--" : h($robot->ip_address) ?></td>
+                    <td class="align-middle"><?= $robot->is_public_robot ? "--" : h($robot->port) ?></td>
                     <td class="align-middle"><?= $robot->has('topic') ? $this->Html->link($robot->topic->name, ['controller' => 'Topics', 'action' => 'view', $robot->topic->id]) : '' ?></td>
                     <td class="align-middle"><?= $robot->is_public_robot ? "Yes" : "No" ?></td>
                     <td class="actions align-middle">

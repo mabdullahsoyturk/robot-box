@@ -1,4 +1,4 @@
-# UI For Warehouse Robot
+# Robot Box
 
 
 UI For Warehouse Robot is a ROS Kinetic project that can be used to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot in any browser. Also, you can give a goal to the robot through map in the browser.
@@ -177,3 +177,37 @@ Topic = /odom (Select topic that you've created before.)
 ```
 
 After creating your robot, just tap the connect button. When you connect to the robot, you will see the map of the environment, which Turtlebot placed, positon information and the compressed camera view of the robot. Also you can give a goal to robot with clicking the destination point on the map. You can see the global path from robot the destination point. 
+
+## Contributing
+
+Ready to contribute to the project? That's great! Open an issue and send your pull request. You can find issue template and pull request template in the repo or send us an email and we will get back to you as soon as possible!
+
+Muhammet Soytürk: muhammetabdullah.soyturk@agu.edu.tr
+
+Burak Usul: hamdiburak.usul@agu.edu.tr
+
+Muaz Ekici: mansurmuaz.ekici@agu.edu.tr
+
+## Licence
+
+MIT License
+
+Copyright (c) 2018 Muhammet Soytürk, Hamdi Burak Usul, Mansur Muaz Ekici
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -38,7 +38,7 @@
         <hr>
       </div>
       <div class="col-lg-8 mx-auto">
-        <p class="text-faded mb-5">ROS Kinetic Visualizer can help you manage your robots better! Just add your robot and start going, no strings attached!</p>
+        <p class="text-faded mb-5">Robot Box can help you manage your robots better! Just add your robot and start going, no strings attached!</p>
         <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
       </div>
     </div>
@@ -51,7 +51,7 @@
       <div class="col-lg-8 mx-auto text-center">
         <h2 class="section-heading text-white">We've got what you need!</h2>
         <hr class="light my-4">
-        <p class="text-faded mb-4">ROS Kinetic Visualizer has everything you need to visualize your robots environment in no time! All of the codes on ROS Kinetic Visualizer are open source. No strings attached!</p>
+        <p class="text-faded mb-4">Robot Box has everything you need to visualize your robots environment in no time! All of the codes on ROS Kinetic Visualizer are open source. No strings attached!</p>
         <a class="btn btn-light btn-xl js-scroll-trigger" href="#contact">Develop With Us!</a>
       </div>
     </div>
@@ -114,13 +114,13 @@
       <div class="col-lg-4 ml-auto text-center">
         <i class="fa fa-3x fa-github mb-3 sr-contact"></i>
         <p>
-          <a href="https://www.github.com/mabdullahsoyturk/ui-for-warehouse-robot">ROS Kinetic Visualizer</a>
+          <a href="https://www.github.com/mabdullahsoyturk/ui-for-warehouse-robot">Robot Box</a>
         </p>
       </div>
       <div class="col-lg-4 mr-auto text-center">
         <i class="fa fa-envelope-o fa-3x mb-3 sr-contact"></i>
         <p>
-          <a href="mailto:contribute@roskineticvisualizer.com">contribute@roskineticvisualizer.com</a>
+          <a href="mailto:contribute@robotbox.com">contribute@robotbox.com</a>
         </p>
       </div>
     </div>

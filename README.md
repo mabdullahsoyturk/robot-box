@@ -91,6 +91,37 @@ After that, open `app.php`, and change the `'my_app'`, `'secret'` and `'my_app'`
 ...
 ```
 
+## Project Structure
+
+```bash
+robot-box/        
+  .git             # Git source directory
+  .github          # Issue templates
+  bin/             # Command line scripts for CakePHP
+  config/          # Database credentials, migrations, and other configuration
+  database/        # SQL database files
+  logs/            # Error,debug logs
+  plugins/         # Currently an empty file since we do not use any plugins for now.
+  src/             # PHP source code
+      controllers/ # Controller classes
+      models/      # Model classes
+      views/       # Views
+  tests/           # Unit tests
+  tmp              # Temporary files such as sessions, cache etc.
+  vendor/          # Composer files and 3rd party packages
+  webroot/         # Publicly accessible files
+      css/         # css files
+      js/          # js files
+      font/        # font files
+      img/         # images
+      index.php    # The Front Controller for handling every request
+  .gitignore       # Files to be ignored in the repository
+  composer.json    # Composer dependency file
+  install.php      # Database installation script
+  package.json     # npm dependency file
+  README.md        # Brief documentation
+```
+
 ## Tutorial
 
 ### Requirements

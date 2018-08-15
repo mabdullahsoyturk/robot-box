@@ -4,7 +4,7 @@
              <div class="card bg-light " style="max-width: 27rem;margin: 70px auto;">
                 <div class="card-body">
                     <div style="padding: 0 20px">
-                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Log In</h1>
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey"><?php echo __('Log In'); ?></h1>
                         <hr class="my-2" >
                             <?= $this->Form->create() ?>
                             <fieldset>
@@ -18,7 +18,7 @@
                             <p class="text-center text-custom" style="margin-top: 10px; color: grey;">or <span class="font-weight-bold"><?= $this->Html->link(__('Forgot Password'), ['action' => 'forgotPassword']) ?></span></p>
                         <hr style="border-color: grey">
                         <div class="text-center text-custom", style="color: grey;">
-                            Don't have an account? <span class="font-weight-bold"><?= $this->Html->link(__('Sign Up'), ['action' => 'add']) ?></span>
+                        <?php echo __('Dont have an account?'); ?> <span class="font-weight-bold"><?= $this->Html->link(__('Sign Up'), ['action' => 'add']) ?></span>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
              <div class="card bg-light " style="margin: 70px auto;">
                 <div class="card-body">
                     <div style="padding: 0 20px">
-                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Add Robot</h1>
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey"><?php echo __('Add Robot'); ?></h1>
                         <hr class="my-2" >
                         <?= $this->Form->create($robot, ['id' => 'robot-form']) ?>
                         <fieldset>

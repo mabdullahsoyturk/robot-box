@@ -11,7 +11,7 @@
              <div class="card bg-light " style="max-width: 27rem;margin: 70px auto;">
                 <div class="card-body">
                     <div style="padding: 0 20px">
-                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Sign Up</h1>
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey"><?php echo __('Sign Up'); ?></h1>
                         <hr class="my-2" >
                         <?= $this->Form->create($user) ?>
                         <fieldset>
@@ -28,7 +28,7 @@
                         <hr style="border-color: grey">
 
                         <div class="pull-right text-custom", style="color: grey;">
-                            Already have an account?   <span class="font-weight-bold"><?= $this->Html->link(__('Log In'), ['action' => 'login']) ?></span>
+                        <?php echo __('Already have an account?'); ?>   <span class="font-weight-bold"><?= $this->Html->link(__('Log In'), ['action' => 'login']) ?></span>
                         </div>
                     </div>
                 </div>

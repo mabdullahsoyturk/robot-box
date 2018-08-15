@@ -4,7 +4,7 @@
              <div class="card bg-light " style="max-width: 27rem;margin: 70px auto;">
                 <div class="card-body">
                     <div style="padding: 0 20px">
-                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Reset Password</h1>
+                        <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey"><?php echo __('Reset Password'); ?></h1>
                         <hr class="my-2" >
                         <?= $this->Form->create(null) ?>
                         <?= $this->Form->Control('email') ?>
@@ -12,7 +12,7 @@
                         <?= $this->Form->end(); ?>
                         <hr style="border-color: grey">
                         <div class="pull-right text-custom", style="color: grey;">
-                            Did you remember?   <span class="font-weight-bold"><?= $this->Html->link(__('Log In'), ['action' => 'login', 'controller' => 'users']) ?></span>
+                        <?php echo __('Did you remember?'); ?>   <span class="font-weight-bold"><?= $this->Html->link(__('Log In'), ['action' => 'login', 'controller' => 'users']) ?></span>
                         </div>
                     </div>
                 </div>

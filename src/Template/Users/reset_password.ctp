@@ -6,8 +6,8 @@
     </ul>
 </nav>
 <div class="users form large-9 medium-8 columns content">
-    <h1 class="header-title">Reset Password</h1>
-    <p>Pick a password that is both strong and easy to remember</p>
+    <h1 class="header-title"><?php echo __('Reset Password'); ?></h1>
+    <p><?php echo __('Pick a password that is both strong and easy to remember'); ?></p>
     <?= $this->Form->create(null) ?>
     <?= $this->Form->Control('password', ['label' => 'Your New Password']) ?>
     <?= $this->Form->Control('password2', ['label' => 'Again..', 'type' => 'password']) ?>

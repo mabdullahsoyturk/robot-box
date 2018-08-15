@@ -11,17 +11,17 @@
              <div class="card bg-light " style="margin: 70px auto;">
                 <div class="card-body">
                     <div style="padding: 0 20px">
-                    <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey">Add Message Type</h1>
+                    <h1 class="text-center font-weight-bold" style="margin-bottom: 20px;  color: grey"><?php echo __('Add Message Type'); ?></h1>
                     <hr class="my-2" >
                         <?= $this->Form->create($mesType) ?>
                         <fieldset>
                             <legend><?= __("Message Type Example") ?></legend>
                             <?= $this->Html->image("sample_message_type.png") ?>
                             <p>
-                                Name : turtlesim/Pose<br>
-                                X Parameter : x<br>
-                                Y Parameter : y<br>
-                                Theta Parameter : theta
+                            <?php echo __('Name : turtlesim/Pose'); ?><br>
+                            <?php echo __('X Parameter : x'); ?><br>
+                            <?php echo __('Y Parameter : y'); ?><br>
+                            <?php echo __('Theta Parameter : theta'); ?>
                             </p>
                         </fieldset>
                         <fieldset>

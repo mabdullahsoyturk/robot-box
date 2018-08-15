@@ -354,29 +354,29 @@ $this->append('script');
              <div class="card bg-light">
                 <div class="card-body">
                   <div>
-                      <span style="font-weight:bold;">X coordinate:</span>
+                      <span style="font-weight:bold;"><?php echo __('X coordinate:'); ?></span>
                       <span id="x_cord"></span>
                       <br>
-                      <span style="font-weight:bold;">Y coordinate:</span>
+                      <span style="font-weight:bold;"><?php echo __('Y coordinate:'); ?></span>
                       <span id="y_cord"></span>
                       <br>
-                      <span style="font-weight:bold;">Angle:</span>
+                      <span style="font-weight:bold;"><?php echo __('Angle:'); ?></span>
                       <span id="theta"></span>
                       <br>
                   </div>
 
                   <div id="statusIndicator">
                       <p id="connecting">
-                          <span style="font-weight:bold;">Status: </span><span style="color:blue;">Connecting to rosbridge...</span>
+                          <span style="font-weight:bold;"><?php echo __('Status:'); ?> </span><span style="color:blue;"><?php echo __('Connecting to rosbridge...'); ?></span>
                       </p>
                       <p id="connected" style="display:none">
-                          <span style="font-weight:bold;">Status: </span><span style="color:#00D600;">Connected</span>
+                          <span style="font-weight:bold;"><?php echo __('Status:'); ?> </span><span style="color:#00D600;"><?php echo __('Connected'); ?></span>
                       </p>
                       <p id="error" style="display:none">
-                        <span style="font-weight:bold;">Statuts: </span><span style="color:#FF0000;"> Error in the backend!</span>
+                        <span style="font-weight:bold;"><?php echo __('Statuts:'); ?> </span><span style="color:#FF0000;"><?php echo __('Error in the backend!'); ?></span>
                       </p>
                       <p id="closed" style="display:none">
-                          <span style="font-weight:bold;">Status: </span><span style="color:#FF0000;">Connection closed.</span>
+                          <span style="font-weight:bold;"><?php echo __('Status:'); ?> </span><span style="color:#FF0000;"><?php echo __('Connection closed.'); ?></span>
                       </p>
                   </div>
                 </div>

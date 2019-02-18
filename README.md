@@ -1,7 +1,7 @@
 # Robot Box
 
 
-UI For Warehouse Robot is a ROS Kinetic project that can be used to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot in any browser. Also, you can give a goal to the robot through map in the browser.
+Robot Box is a ROS Kinetic project that can be used to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot in any browser. Also, you can give a goal to the robot through map in the browser.
 
 
 ## Pre-installation

@@ -3,6 +3,8 @@
 
 Robot Box is a ROS Kinetic project that can be used to display the map of the environment, which Turtlebot placed, and the compressed camera view of the robot in any browser. Also, you can give a goal to the robot through map in the browser.
 
+![Screenshot](/images/screenshot.jpeg)
+
 
 ## Pre-installation
 
@@ -67,7 +69,7 @@ This command will read the dependencies from the composer.json descriptor file a
 
 > If you get `vendor does not exist and could not be created.` error, your folder (var/www) probably is read-only or has not enough rights. For a quick fix, try `chmod -R 777 /var/www`, but dont use 777 in production!
 
-### URL Rewriting 
+### URL Rewriting
 
 UI For Warehouse Robot uses cakePhp framework which requires Apache mod rewrite to be enabled. You can follow CakePHP's [URL Rewriting](https://book.cakephp.org/3.0/en/installation.html#url-rewriting) tutorial.
 
@@ -87,14 +89,14 @@ After that, open `app.php`, and change the `'my_app'`, `'secret'` and `'my_app'`
             'username' => 'my_app',
             'password' => 'secret',
             'database' => 'my_app',
-            ...	
+            ...
 ...
 ```
 
 ## Project Structure
 
 ```bash
-robot-box/        
+robot-box/
   .git             # Git source directory
   .github          # Issue templates
   bin/             # Command line scripts for CakePHP
@@ -130,7 +132,7 @@ robot-box/
 - Robot must has a camera
 - Robot must publish it's position through some topic.
 
-> This project has support only TurtleBot for now. Support for other robots will be added soon. 
+> This project has support only TurtleBot for now. Support for other robots will be added soon.
 
 ### Launching [Turtlebot on Gazebo](http://wiki.ros.org/turtlebot_gazebo/Tutorials/indigo/Make%20a%20map%20and%20navigate%20with%20it#Make_a_map)
 
@@ -183,7 +185,7 @@ $ roslaunch rosbridge_server rosbridge_websocket.launch
 
 Now, everything is ready. Go to the our project in your browser. After Signup/Login, first of all, you need to create your `message type`.
 
-For example, if you are using Turtlebot; 
+For example, if you are using Turtlebot;
 
 ```
 Message name = "nav_msgs/Odometry"
@@ -199,7 +201,7 @@ Topic = "/odom"
 Mes = nav_msgs/Odometry (Select message that you've created before.)
 ```
 
-After that you can create your `robot`. 
+After that you can create your `robot`.
 
 ```
 IP address = Your IP address (If you are on localhost just "localhost".)
@@ -207,7 +209,7 @@ Port = 	9090 (Your port.)
 Topic = /odom (Select topic that you've created before.)
 ```
 
-After creating your robot, just tap the connect button. When you connect to the robot, you will see the map of the environment, which Turtlebot placed, positon information and the compressed camera view of the robot. Also you can give a goal to robot with clicking the destination point on the map. You can see the global path from robot the destination point. 
+After creating your robot, just tap the connect button. When you connect to the robot, you will see the map of the environment, which Turtlebot placed, positon information and the compressed camera view of the robot. Also you can give a goal to robot with clicking the destination point on the map. You can see the global path from robot the destination point.
 
 ## Contributing
 
